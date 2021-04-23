@@ -6,5 +6,17 @@ import (
 )
 
 func TestFizzBuzz(t *testing.T) {
-	assert.Equal(t,true,false)
+	tests := []struct {
+		name string
+	}{
+		{"should_return_100_elements"},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result:= FizzBuzz()
+
+			assert.Equal(t, 100, len(result))
+		})
+	}
 }
+
