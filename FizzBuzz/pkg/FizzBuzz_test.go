@@ -11,6 +11,14 @@ func Test_should_return_100_elements(t *testing.T) {
 	assert.Equal(t, 100, len(result))
 }
 
+func Test_should_return_number_when_do_not_fullfill_business_rules(t *testing.T) {
+	_= Transform()
+
+	assert.Equal(t, "1", GetNumber(1))
+	assert.Equal(t, "47", GetNumber(47))
+	assert.Equal(t, "97", GetNumber(97))
+}
+
 func Test_should_return_Fizz_when_is_multiple_of_three(t *testing.T) {
 	_ = Transform()
 
