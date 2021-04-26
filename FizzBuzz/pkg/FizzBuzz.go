@@ -9,7 +9,9 @@ var (
 
 func Transform() [] string {
 	for i := 1 ; i <= 100; i++ {
-		if isFizz(i) {
+		if isFizz(i) && isBuzz(i) {
+			result = append(result, "FizzBuzz")
+		} else if isFizz(i) {
 			result = append(result, "Fizz")
 		} else if isBuzz(i) {
 			result = append(result, "Buzz")
