@@ -7,7 +7,7 @@ var (
 	result []string
 )
 
-func FizzBuzz() [] string {
+func Transform() [] string {
 	for i := 1 ; i <= 100; i++ {
 		if i % 3 == 0 {
 			result = append(result, "Fizz")
