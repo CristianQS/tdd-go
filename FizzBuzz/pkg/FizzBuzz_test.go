@@ -12,8 +12,10 @@ func Test_should_return_100_elements(t *testing.T) {
 }
 
 func Test_should_return_Fizz_when_is_multiple_of_three(t *testing.T) {
-	result:= FizzBuzz()
+	_ = FizzBuzz()
 
-	assert.Equal(t, "Fizz", result[2])
+	assert.Equal(t, "Fizz", GetNumber(3))
+	assert.Equal(t, "Fizz", GetNumber(33))
+	assert.Equal(t, "Fizz", GetNumber(99))
 }
 

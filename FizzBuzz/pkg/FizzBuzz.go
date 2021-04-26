@@ -2,8 +2,12 @@ package pkg
 
 import "strconv"
 
-func FizzBuzz() (result []string) {
 
+var (
+	result []string
+)
+
+func FizzBuzz() [] string {
 	for i := 1 ; i <= 100; i++ {
 		if i % 3 == 0 {
 			result = append(result, "Fizz")
@@ -13,3 +17,8 @@ func FizzBuzz() (result []string) {
 	}
 	return result
 }
+
+func GetNumber(number int) string {
+	return result[number-1]
+}
+
