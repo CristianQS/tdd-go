@@ -34,7 +34,7 @@ func isBuzz(i int) bool {
 }
 
 func isFizz(i int) bool {
-	return i%3 == 0
+	return i % 3 == 0 || strings.Contains(strconv.Itoa(i), "3")
 }
 
 func GetNumber(number int) string {

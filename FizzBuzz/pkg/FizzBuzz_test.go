@@ -42,6 +42,14 @@ func Test_should_return_Buzz_when_is_multiple_of_five_and_three(t *testing.T) {
 	assert.Equal(t, "FizzBuzz", GetNumber(45))
 	assert.Equal(t, "FizzBuzz", GetNumber(90))
 }
+
+func Test_should_return_Fizz_when_contains_three(t *testing.T) {
+	_ = Transform()
+
+	assert.Equal(t, "Fizz", GetNumber(31))
+	assert.Equal(t, "Fizz", GetNumber(13))
+}
+
 func Test_should_return_Buzz_when_contains_five(t *testing.T) {
 	_ = Transform()
 
