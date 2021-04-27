@@ -1,6 +1,9 @@
 package pkg
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 
 var (
@@ -27,7 +30,7 @@ func isFizzBuzz(i int) bool {
 }
 
 func isBuzz(i int) bool {
-	return i%5 == 0
+	return i % 5 == 0 || strings.Contains(strconv.Itoa(i), "5")
 }
 
 func isFizz(i int) bool {
