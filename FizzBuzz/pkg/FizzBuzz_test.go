@@ -4,6 +4,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
+const FIZZ = "Fizz"
+const BUZZ = "Buzz"
+const FIZZBUZZ = "FizzBuzz"
+
 
 func Test_should_return_100_elements(t *testing.T) {
 	result:= Transform()
@@ -22,44 +26,44 @@ func Test_should_return_number_when_do_not_fullfill_business_rules(t *testing.T)
 func Test_should_return_Fizz_when_is_multiple_of_three(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "Fizz", GetNumber(3))
-	assert.Equal(t, "Fizz", GetNumber(33))
-	assert.Equal(t, "Fizz", GetNumber(99))
+	assert.Equal(t, FIZZ, GetNumber(3))
+	assert.Equal(t, FIZZ, GetNumber(33))
+	assert.Equal(t, FIZZ, GetNumber(99))
 }
 
 func Test_should_return_Buzz_when_is_multiple_of_five(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "Buzz", GetNumber(5))
-	assert.Equal(t, "Buzz", GetNumber(50))
-	assert.Equal(t, "Buzz", GetNumber(95))
+	assert.Equal(t, BUZZ, GetNumber(5))
+	assert.Equal(t, BUZZ, GetNumber(50))
+	assert.Equal(t, BUZZ, GetNumber(95))
 }
 
 func Test_should_return_Buzz_when_is_multiple_of_five_and_three(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "FizzBuzz", GetNumber(15))
-	assert.Equal(t, "FizzBuzz", GetNumber(45))
-	assert.Equal(t, "FizzBuzz", GetNumber(90))
+	assert.Equal(t, FIZZBUZZ, GetNumber(15))
+	assert.Equal(t, FIZZBUZZ, GetNumber(45))
+	assert.Equal(t, FIZZBUZZ, GetNumber(90))
 }
 
 func Test_should_return_Fizz_when_contains_three(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "Fizz", GetNumber(31))
-	assert.Equal(t, "Fizz", GetNumber(13))
+	assert.Equal(t, FIZZ, GetNumber(31))
+	assert.Equal(t, FIZZ, GetNumber(13))
 }
 
 func Test_should_return_Buzz_when_contains_five(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "Buzz", GetNumber(52))
-	assert.Equal(t, "Buzz", GetNumber(59))
+	assert.Equal(t, BUZZ, GetNumber(52))
+	assert.Equal(t, BUZZ, GetNumber(59))
 }
 func Test_should_return_FizzBuzz_when_contains_three_and_five(t *testing.T) {
 	_ = Transform()
 
-	assert.Equal(t, "FizzBuzz", GetNumber(35))
-	assert.Equal(t, "FizzBuzz", GetNumber(53))
+	assert.Equal(t, FIZZBUZZ, GetNumber(35))
+	assert.Equal(t, FIZZBUZZ, GetNumber(53))
 }
 

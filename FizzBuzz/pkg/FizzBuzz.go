@@ -29,12 +29,12 @@ func isFizzBuzz(i int) bool {
 	return isFizz(i) && isBuzz(i)
 }
 
-func isBuzz(i int) bool {
-	return i % 5 == 0 || strings.Contains(strconv.Itoa(i), "5")
+func isBuzz(number int) bool {
+	return number % 5 == 0 || strings.Contains(strconv.Itoa(number), "5")
 }
 
-func isFizz(i int) bool {
-	return i % 3 == 0 || strings.Contains(strconv.Itoa(i), "3")
+func isFizz(number int) bool {
+	return number % 3 == 0 || strings.Contains(strconv.Itoa(number), "3")
 }
 
 func GetNumber(number int) string {
