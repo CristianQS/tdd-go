@@ -1,10 +1,10 @@
 package pkg
 
 type GildedRose struct {
-	items []Item
+	items []*Item
 }
 
-func (g *GildedRose) updateQuality()  {
+func (g *GildedRose) UpdateQuality()  {
 	for i := 0; i < len(g.items); i++ {
 		if !(g.items[i].name == "Aged Brie") && !(g.items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
 			if g.items[i].quality > 0 {
