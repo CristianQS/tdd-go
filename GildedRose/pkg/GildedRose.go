@@ -1,7 +1,7 @@
 package pkg
 
 type GildedRose struct {
-	items []Item
+	items []*Item
 }
 
 func (g *GildedRose) updateQuality()  {
