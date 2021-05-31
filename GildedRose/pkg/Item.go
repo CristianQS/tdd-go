@@ -8,6 +8,6 @@ type Item struct {
 	quality int
 }
 
-func (i *Item) toString() string  {
+func (i *Item) ToString() string {
 	return fmt.Sprintf("%s, %v, %v", i.name, i.sellIn, i.quality)
 }
