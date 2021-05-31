@@ -28,14 +28,27 @@ func Test_should_not_decrease_quality_when_quality_is_zero(t *testing.T) {
 	assert.Equal(t, -1, item.sellIn)
 
 }
+
 func Test_should_Aged_Brie_increase_quality_when_sell_in_decrease(t *testing.T) {
 	givenQuality := 10
 	givenSellIn := 10
-	item := &Item{name: "a", quality: givenQuality, sellIn: givenSellIn}
+	item := &Item{name: "Aged Brie", quality: givenQuality, sellIn: givenSellIn}
 	gildedRose := GildedRose{items: []*Item{item}}
 
 	gildedRose.UpdateQuality()
 
-	assert.Equal(t, givenQuality, item.quality+1)
+	assert.Equal(t, givenQuality+1, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}
+
+func Test_should_not_quality_increase_more_than_50(t *testing.T) {
+	givenQuality := 50
+	givenSellIn := 10
+	item := &Item{name: "Aged Brie", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality, item.quality)
 	assert.Equal(t, givenSellIn-1, item.sellIn)
 }
