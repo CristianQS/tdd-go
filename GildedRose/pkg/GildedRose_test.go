@@ -64,3 +64,38 @@ func Test_should_Sulfuras_not_decrease_quality(t *testing.T) {
 	assert.Equal(t, givenQuality, item.quality)
 	assert.Equal(t, givenSellIn, item.sellIn)
 }
+
+func Test_should_Backstage_increase_quality_by_2_when_SellIn_is_between_10_and_6(t *testing.T) {
+	givenQuality := 10
+	givenSellIn := 10
+	item := &Item{name: "Backstage passes to a TAFKAL80ETC concert", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality+2, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}
+func Test_should_Backstage_increase_quality_by_3_when_SellIn_is_between_5_and_1(t *testing.T) {
+	givenQuality := 10
+	givenSellIn := 5
+	item := &Item{name: "Backstage passes to a TAFKAL80ETC concert", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality+3, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}
+
+func Test_should_Backstage_quality_drop_to_0_when_SellIn_is_0(t *testing.T) {
+	givenQuality := 10
+	givenSellIn := 0
+	item := &Item{name: "Backstage passes to a TAFKAL80ETC concert", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, 0, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}
