@@ -52,3 +52,15 @@ func Test_should_not_quality_increase_more_than_50(t *testing.T) {
 	assert.Equal(t, givenQuality, item.quality)
 	assert.Equal(t, givenSellIn-1, item.sellIn)
 }
+
+func Test_should_Sulfuras_not_decrease_quality(t *testing.T) {
+	givenQuality := 50
+	givenSellIn := 10
+	item := &Item{name: "Sulfuras, Hand of Ragnaros", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality, item.quality)
+	assert.Equal(t, givenSellIn, item.sellIn)
+}
