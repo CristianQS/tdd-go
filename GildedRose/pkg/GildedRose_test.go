@@ -14,6 +14,7 @@ func Test_should_decrease_quality_twice_as_fast_when_sell_passed_out(t *testing.
 	gildedRose.UpdateQuality()
 
 	assert.Equal(t, givenQuality-2, item.quality)
+	assert.Equal(t, -1, item.sellIn)
 }
 
 func Test_should_not_decrease_quality_when_quality_is_zero(t *testing.T) {
@@ -24,13 +25,17 @@ func Test_should_not_decrease_quality_when_quality_is_zero(t *testing.T) {
 	gildedRose.UpdateQuality()
 
 	assert.Equal(t, zeroQuality, item.quality)
+	assert.Equal(t, -1, item.sellIn)
+
 }
 func Test_should_Aged_Brie_increase_quality_when_sell_in_decrease(t *testing.T) {
 	givenQuality := 10
-	item := &Item{name: "a", quality: givenQuality, sellIn: 10}
+	givenSellIn := 10
+	item := &Item{name: "a", quality: givenQuality, sellIn: givenSellIn}
 	gildedRose := GildedRose{items: []*Item{item}}
 
 	gildedRose.UpdateQuality()
 
 	assert.Equal(t, givenQuality, item.quality+1)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
 }
