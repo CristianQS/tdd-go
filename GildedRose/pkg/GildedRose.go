@@ -7,7 +7,7 @@ type GildedRose struct {
 func (g *GildedRose) UpdateQuality() {
 	for i := 0; i < len(g.items); i++ {
 		if !IsAgedBrie(g, i) && !IsBackstage(g, i) {
-			if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") {
+			if !(IsRagnaros(g.items[i])) {
 				NormalItemUpdate(g.items[i])
 			}
 		} else {
@@ -20,7 +20,7 @@ func (g *GildedRose) UpdateQuality() {
 			}
 		}
 
-		if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") {
+		if !(IsRagnaros(g.items[i])) {
 			g.items[i].sellIn = g.items[i].sellIn - 1
 		}
 
@@ -28,7 +28,7 @@ func (g *GildedRose) UpdateQuality() {
 			if !IsAgedBrie(g, i) {
 				if !IsBackstage(g, i) {
 					if g.items[i].quality > 0 {
-						if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") {
+						if !(IsRagnaros(g.items[i])) {
 							g.items[i].quality = g.items[i].quality - 1
 						}
 					}
@@ -50,6 +50,9 @@ func IsBackstage(g *GildedRose, i int) bool {
 
 func IsAgedBrie(g *GildedRose, i int) bool {
 	return g.items[i].name == "Aged Brie"
+}
+func IsRagnaros(item *Item) bool {
+	return item.name == "Sulfuras, Hand of Ragnaros"
 }
 
 func NormalItemUpdate(item *Item) {
