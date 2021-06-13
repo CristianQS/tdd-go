@@ -6,15 +6,16 @@ type GildedRose struct {
 
 func (g *GildedRose) UpdateQuality() {
 	for i := 0; i < len(g.items); i++ {
-		if g.items[i].name == "Sulfuras, Hand of Ragnaros" {
+		item := create(g.items[i])
+		item.Degrade()
 
-		} else if g.items[i].name == "Aged Brie" {
-			AgedBrieUpdate(g.items[i])
-		} else if g.items[i].name == "Backstage passes to a TAFKAL80ETC concert" {
-			BackstageUpdate(g.items[i])
-		} else {
-			NormalItemUpdate(g.items[i])
-		}
+		//if g.items[i].name == "Aged Brie" {
+		//	AgedBrieUpdate(g.items[i])
+		//} else if g.items[i].name == "Backstage passes to a TAFKAL80ETC concert" {
+		//	BackstageUpdate(g.items[i])
+		//} else {
+		//	NormalItemUpdate(g.items[i])
+		//}
 	}
 }
 
