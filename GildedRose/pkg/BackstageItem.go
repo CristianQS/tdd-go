@@ -23,4 +23,5 @@ func (b *BackstageItem) Degrade() {
 
 	if b.item.sellIn < 0 {
 		b.item.quality = b.item.quality - b.item.quality
-	}}
+	}
+}

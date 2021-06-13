@@ -14,5 +14,6 @@ func (i *AgedBrieItem) Degrade() {
 		if i.item.quality < 50 {
 			i.item.quality = i.item.quality + 1
 		}
-	}}
+	}
+}
 
