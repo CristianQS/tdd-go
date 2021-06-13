@@ -27,11 +27,7 @@ func (g *GildedRose) UpdateQuality() {
 		if g.items[i].sellIn < 0 {
 			if !IsAgedBrie(g, i) {
 				if !IsBackstage(g, i) {
-					if g.items[i].quality > 0 {
-						if !(IsRagnaros(g.items[i])) {
-							g.items[i].quality = g.items[i].quality - 1
-						}
-					}
+					NormalItemUpdate(g.items[i])
 				} else {
 					g.items[i].quality = g.items[i].quality - g.items[i].quality
 				}

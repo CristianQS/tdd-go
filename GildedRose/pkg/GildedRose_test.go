@@ -1,9 +1,8 @@
 package pkg
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func Test_should_Normal_item_decrease_quality_by_one_when_sell_has_not_passed_out(t *testing.T) {
