@@ -9,33 +9,19 @@ func (g *GildedRose) UpdateQuality() {
 		if g.items[i].name == "Aged Brie" {
 			AgedBrieUpdate(g.items[i])
 		}
+		if g.items[i].name == "Backstage passes to a TAFKAL80ETC concert" {
+			BackstageUpdate(g.items[i])
+		}
 		if !(g.items[i].name == "Aged Brie") && !(g.items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
 			if g.items[i].quality > 0 {
 				if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") {
 					g.items[i].quality = g.items[i].quality - 1
 				}
 			}
-		} else {
-			if g.items[i].quality < 50 {
-
-				if g.items[i].name == "Backstage passes to a TAFKAL80ETC concert" {
-					g.items[i].quality = g.items[i].quality + 1
-					if g.items[i].sellIn < 11 {
-						if g.items[i].quality < 50 {
-							g.items[i].quality = g.items[i].quality + 1
-						}
-					}
-
-					if g.items[i].sellIn < 6 {
-						if g.items[i].quality < 50 {
-							g.items[i].quality = g.items[i].quality + 1
-						}
-					}
-				}
-			}
 		}
 
-		if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") {
+		if !(g.items[i].name == "Sulfuras, Hand of Ragnaros") && !(g.items[i].name == "Aged Brie") &&
+			!(g.items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
 			g.items[i].sellIn = g.items[i].sellIn - 1
 		}
 
@@ -48,7 +34,6 @@ func (g *GildedRose) UpdateQuality() {
 						}
 					}
 				} else {
-					g.items[i].quality = g.items[i].quality - g.items[i].quality
 				}
 			} else {
 
@@ -57,11 +42,33 @@ func (g *GildedRose) UpdateQuality() {
 	}
 }
 
+func BackstageUpdate(item *Item) {
+	if item.quality < 50 {
+		item.quality = item.quality + 1
+		if item.sellIn < 11 {
+			if item.quality < 50 {
+				item.quality = item.quality + 1
+			}
+		}
+
+		if item.sellIn < 6 {
+			if item.quality < 50 {
+				item.quality = item.quality + 1
+			}
+		}
+	}
+	item.sellIn = item.sellIn - 1
+
+	if item.sellIn < 0 {
+		item.quality = item.quality - item.quality
+	}
+}
+
 func AgedBrieUpdate(item *Item) {
 	if item.quality < 50 {
 		item.quality = item.quality + 1
 	}
-	//g.items[i].sellIn = g.items[i].sellIn - 1
+	item.sellIn = item.sellIn - 1
 
 	if item.sellIn < 0 {
 		if item.quality < 50 {
