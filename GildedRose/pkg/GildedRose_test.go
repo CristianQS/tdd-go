@@ -134,3 +134,15 @@ func Test_should_decrease_twice_his_quality_when_sellIn_decrease(t *testing.T) {
 	assert.Equal(t, givenQuality - 2, item.quality)
 	assert.Equal(t, givenSellIn-1, item.sellIn)
 }
+
+func Test_should_decrease_four_times_his_quality_when_sellIn_is_0(t *testing.T) {
+	givenQuality := 10
+	givenSellIn := 0
+	item := &Item{name: "Conjured", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality - 4, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}

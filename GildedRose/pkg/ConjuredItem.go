@@ -12,7 +12,7 @@ func (i ConjuredItem) Degrade() {
 
 	if i.item.sellIn < 0 {
 		if i.item.quality > 0 {
-			i.item.quality = i.item.quality - 4
+			i.item.quality = i.item.quality - 2
 		}
 	}}
 
