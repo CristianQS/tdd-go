@@ -8,6 +8,8 @@ func create(item *Item) DegradableItem{
 		return &AgedBrieItem{item: item}
 	case "Backstage passes to a TAFKAL80ETC concert":
 		return &BackstageItem{item: item}
+	case "Conjured":
+		return &ConjuredItem{item: item}
 	default:
 		return &NormalItem{item: item}
 	}

@@ -122,3 +122,15 @@ func Test_should_Backstage_quality_drop_to_0_when_SellIn_is_0(t *testing.T) {
 	assert.Equal(t, 0, item.quality)
 	assert.Equal(t, givenSellIn-1, item.sellIn)
 }
+
+func Test_should_decrease_twice_his_quality_when_sellIn_decrease(t *testing.T) {
+	givenQuality := 10
+	givenSellIn := 10
+	item := &Item{name: "Conjured", quality: givenQuality, sellIn: givenSellIn}
+	gildedRose := GildedRose{items: []*Item{item}}
+
+	gildedRose.UpdateQuality()
+
+	assert.Equal(t, givenQuality - 2, item.quality)
+	assert.Equal(t, givenSellIn-1, item.sellIn)
+}
