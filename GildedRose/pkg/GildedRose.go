@@ -5,8 +5,8 @@ type GildedRose struct {
 }
 
 func (g *GildedRose) UpdateQuality() {
-	for i := 0; i < len(g.items); i++ {
-		item := create(g.items[i])
-		item.Degrade()
+	for _, item := range g.items {
+		degradableItem := create(item)
+		degradableItem.Degrade()
 	}
 }
