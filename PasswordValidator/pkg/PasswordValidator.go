@@ -5,6 +5,7 @@ import "strings"
 func ValidatePassword(password string) bool {
 	if HasMoreThan8Characters(password) { return false }
 	if password == strings.ToLower(password) { return false }
+	if password == strings.ToUpper(password) { return false }
 	return true
 }
 

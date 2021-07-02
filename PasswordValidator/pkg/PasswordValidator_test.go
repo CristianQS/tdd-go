@@ -28,3 +28,11 @@ func Test_should_password_not_pass_when_there_is_not_capital_letter(t *testing.T
 
 	assert.Equal(t, false,result)
 }
+
+func Test_should_password_not_pass_when_there_is_not_lower_letter(t *testing.T) {
+	validatedPassword := "ASQWLA_Q8"
+
+	var result = ValidatePassword(validatedPassword)
+
+	assert.Equal(t, false,result)
+}
