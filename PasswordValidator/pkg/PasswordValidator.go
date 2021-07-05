@@ -10,9 +10,11 @@ func ValidatePassword(password string) bool {
 	if NotContainsUpperCase(password) { return false }
 	if NotContainsLowerCase(password) {	return false }
 	if !HasDigit(password) { return false }
+	if !HasUnderscore(password) {
+		return false
+	}
 	return true
 }
-
 
 func HasMoreThan8Characters(password string) bool {
 	return len(password) <= 8
@@ -33,6 +35,10 @@ func HasDigit(password string) bool {
 		}
 	}
 	return false
+}
+
+func HasUnderscore(password string) bool {
+	return strings.Contains(password, "_")
 }
 
 
