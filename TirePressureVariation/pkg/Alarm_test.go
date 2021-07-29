@@ -5,13 +5,11 @@ import (
 	"testing"
 )
 
-var (
-	sensor = MockSensor{}
-	logger = MockLogger{}
-)
 //http://cs-guy.com/blog/2015/01/test-main/
 
 func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold(t *testing.T) {
+	sensor := MockSensor{}
+	logger := MockLogger{}
 	sensor.SetPressure(16)
 	alarm := Alarm{sensor: sensor, logger: &logger}
 
@@ -21,7 +19,9 @@ func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold(t *testi
 }
 
 func Test_should_alarm_be_activated_when_sensor_is_high_than_threshold(t *testing.T) {
-	sensor.SetPressure(21)
+	sensor := MockSensor{}
+	logger := MockLogger{}
+	sensor.SetPressure(22)
 	alarm := Alarm{sensor: sensor, logger: &logger}
 
 	alarm.check()
