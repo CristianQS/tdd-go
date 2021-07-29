@@ -1,9 +1,8 @@
 package pkg
 
-import "fmt"
-
 type Alarm struct {
-	sensor Sensor
+	sensor ISensor
+	logger Logger
 }
 var (
 	LowPressureThreshold float32 = 17
@@ -17,12 +16,12 @@ func (a Alarm) check() {
 	if psiPressureValue < LowPressureThreshold || HighPressureThreshold < psiPressureValue {
 		if !a.isAlarmOn() {
 			alarmOn = true
-			fmt.Println("Alarm activated!")
+			a.logger.log("Alarm activated!")
 		}
 	} else {
 		if a.isAlarmOn() {
 			alarmOn = false
-			fmt.Println("Alarm deactivated!")
+			a.logger.log("Alarm deactivated!")
 		}
 	}
 }
