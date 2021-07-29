@@ -19,3 +19,12 @@ func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold(t *testi
 
 	assert.Equal(t, "Alarm activated!",logger.GetMessage())
 }
+
+func Test_should_alarm_be_activated_when_sensor_is_high_than_threshold(t *testing.T) {
+	sensor.SetPressure(21)
+	alarm := Alarm{sensor: sensor, logger: &logger}
+
+	alarm.check()
+
+	assert.Equal(t, "Alarm activated!",logger.GetMessage())
+}
