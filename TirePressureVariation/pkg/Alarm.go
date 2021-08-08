@@ -14,7 +14,7 @@ const LowPressureThreshold float32 = 17
 const HighPressureThreshold float32 = 21
 
 
-func (a Alarm) check() {
+func (a *Alarm) check() {
 	var psiPressureValue = a.sensor.PopNextPressurePsiValue()
 
 	if psiPressureValue < LowPressureThreshold || HighPressureThreshold < psiPressureValue {
