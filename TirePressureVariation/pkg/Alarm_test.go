@@ -53,3 +53,15 @@ func Test_should_alarm_be_deactivated_when_alarm_has_been_activated(t *testing.T
 
 	assert.Equal(t, "Alarm deactivated!",logger.GetMessage())
 }
+
+func Test_should_alarm_be_activated_when_sensor_keeps_out_threshold(t *testing.T) {
+	sensor := &MockSensor{}
+	logger := &MockLogger{}
+	sensor.SetPressure(16)
+	alarm := NewAlarm(sensor,logger)
+
+	alarm.check()
+	alarm.check()
+
+	assert.Equal(t, "Alarm activated!",logger.GetMessage())
+}
