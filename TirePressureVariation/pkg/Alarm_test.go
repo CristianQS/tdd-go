@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -16,6 +17,18 @@ func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold(t *testi
 	alarm.check()
 
 	assert.Equal(t, "Alarm activated!",logger.GetMessage())
+}
+
+// https://blog.codecentric.de/en/2017/08/gomock-tutorial/
+func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold_gomock(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	sensor := NewMockISensor(ctrl)
+	logger := NewMockILogger(ctrl)
+	alarm := NewAlarm(sensor,logger)
+	sensor.EXPECT().PopNextPressurePsiValue().Return(float32(16))
+	logger.EXPECT().log("Alarm activated!").Times(1)
+
+	alarm.check()
 }
 
 func Test_should_alarm_be_activated_when_sensor_is_high_than_threshold(t *testing.T) {

@@ -1,5 +1,5 @@
 package pkg
 
-type Logger interface {
+type ILogger interface {
 	log(message string)
 }

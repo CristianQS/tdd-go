@@ -1,12 +1,12 @@
 package pkg
 
 type Alarm struct {
-	sensor ISensor
-	logger Logger
+	sensor  ISensor
+	logger  ILogger
 	alarmOn bool
 }
 
-func NewAlarm(sensor ISensor, logger Logger) *Alarm {
+func NewAlarm(sensor ISensor, logger ILogger) *Alarm {
 	return &Alarm{sensor: sensor, logger: logger, alarmOn: false}
 }
 
