@@ -1,5 +1,5 @@
-# Katas
-
+# TDD-GO
+In this repository is for practice TDD with Go by doing some Katas
 ## [Fizz Buzz](FizzBuzz)
 Good kata to start doing TDD
 
@@ -8,3 +8,9 @@ Refactoring kata
 
 ## [Password validator](PasswordValidator)
 Kata to practice the importance of the test order.
+
+## [Tire Pressure Variation](TirePressureVariation)
+Refactoring kata to start practicing with test doubles (spies and stubs).
+
+## [Coffee Machine](/coffee-machine/)
+Good kata to learn Outside-in TDD with test doubles
