@@ -10,7 +10,7 @@ func Test_should_create_a_tea_drink_with_no_sugar_command(t *testing.T) {
 	mockDrinkMaker := NewMockDrinkMaker(ctrl)
 	var coffeeMachine = NewCoffeeMachine(mockDrinkMaker)
 
-	coffeeMachine.Execute()
+	mockDrinkMaker.EXPECT().execute(gomock.Eq("T::")).Times(1)
 
-	mockDrinkMaker.EXPECT().execute(gomock.Eq("T::"))
+	coffeeMachine.Execute()
 }
