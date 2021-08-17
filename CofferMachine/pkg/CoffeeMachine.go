@@ -1,15 +1,38 @@
 package pkg
 
-type CoffeeMachine struct {
-	drinkMaker DrinkMaker
+import (
+	"fmt"
+	"strconv"
+)
+
+type Drink struct {
+	DrinkType string
+	NumberSugar int
 }
 
-func NewCoffeeMachine(drinkMaker DrinkMaker) *CoffeeMachine {
-	return &CoffeeMachine{drinkMaker: drinkMaker}
+type CoffeeMachine struct {
+	drinkMaker DrinkMaker
+	drink *Drink
+}
+
+func NewCoffeeMachine(drinkMaker DrinkMaker, drink *Drink) *CoffeeMachine {
+	return &CoffeeMachine{drinkMaker: drinkMaker, drink: drink}
 }
 
 func (c *CoffeeMachine) Execute() {
-	c.drinkMaker.execute("T::")
+	var (
+		character string
+		sugar string
+		sticks    string
+	)
+	if c.drink.DrinkType == "Tea"{ character += "T"}
+	if c.drink.DrinkType == "Coffee"{ character += "C"}
+	if c.drink.NumberSugar > 0 {
+		sugar  = strconv.Itoa(c.drink.NumberSugar)
+		sticks = "1"
+	}
+	c.drinkMaker.execute(fmt.Sprintf("%s:%s:%s", character, sugar,sticks))
+	
 }
 
 
