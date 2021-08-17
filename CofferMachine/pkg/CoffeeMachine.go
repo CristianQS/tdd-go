@@ -27,9 +27,10 @@ func (c *CoffeeMachine) Execute() {
 	)
 	if c.drink.DrinkType == "Tea"{ character += "T"}
 	if c.drink.DrinkType == "Coffee"{ character += "C"}
+	if c.drink.DrinkType == "Chocolate"{ character += "H"}
 	if c.drink.NumberSugar > 0 {
 		sugar  = strconv.Itoa(c.drink.NumberSugar)
-		sticks = "1"
+		sticks = "0"
 	}
 	c.drinkMaker.execute(fmt.Sprintf("%s:%s:%s", character, sugar,sticks))
 	
