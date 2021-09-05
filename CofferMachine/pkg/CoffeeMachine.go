@@ -6,8 +6,8 @@ import (
 )
 
 type Drink struct {
-	DrinkType string
-	NumberSugar int
+	DrinkType     string
+	SugarQuantity int
 }
 
 type CoffeeMachine struct {
@@ -28,12 +28,16 @@ func (c *CoffeeMachine) Execute() {
 	if c.drink.DrinkType == "Tea"{ character += "T"}
 	if c.drink.DrinkType == "Coffee"{ character += "C"}
 	if c.drink.DrinkType == "Chocolate"{ character += "H"}
-	if c.drink.NumberSugar > 0 {
-		sugar  = strconv.Itoa(c.drink.NumberSugar)
+	if c.drink.SugarQuantity > 0 {
+		sugar  = strconv.Itoa(c.drink.SugarQuantity)
 		sticks = "0"
 	}
-	c.drinkMaker.execute(fmt.Sprintf("%s:%s:%s", character, sugar,sticks))
-	
+	c.drinkMaker.execute(c.CreateDrinkMakerOrder(character, sugar, sticks))
+
+}
+
+func (c *CoffeeMachine) CreateDrinkMakerOrder(character string, sugar string, sticks string) string {
+	return fmt.Sprintf("%s:%s:%s", character, sugar, sticks)
 }
 
 
