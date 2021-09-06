@@ -1,12 +1,13 @@
 package pkg
 
 import (
+	"CofferMachine/internal/enums"
 	"fmt"
 	"strconv"
 )
 
 type Drink struct {
-	DrinkType     string
+	DrinkType enums.DrinkType
 	SugarQuantity int
 }
 
@@ -21,18 +22,15 @@ func NewCoffeeMachine(drinkMaker DrinkMaker, drink *Drink) *CoffeeMachine {
 
 func (c *CoffeeMachine) Execute() {
 	var (
-		character string
 		sugar string
 		sticks    string
 	)
-	if c.drink.DrinkType == "Tea"{ character += "T"}
-	if c.drink.DrinkType == "Coffee"{ character += "C"}
-	if c.drink.DrinkType == "Chocolate"{ character += "H"}
+
 	if c.drink.SugarQuantity > 0 {
 		sugar  = strconv.Itoa(c.drink.SugarQuantity)
 		sticks = "0"
 	}
-	c.drinkMaker.execute(c.CreateDrinkMakerOrder(character, sugar, sticks))
+	c.drinkMaker.execute(c.CreateDrinkMakerOrder(string(c.drink.DrinkType), sugar, sticks))
 
 }
 
