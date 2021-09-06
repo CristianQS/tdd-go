@@ -8,10 +8,10 @@ import (
 
 type CoffeeMachine struct {
 	drinkMaker DrinkMaker
-	drink *model.Drink
+	drink *model.OrderDrink
 }
 
-func NewCoffeeMachine(drinkMaker DrinkMaker, drink *model.Drink) *CoffeeMachine {
+func NewCoffeeMachine(drinkMaker DrinkMaker, drink *model.OrderDrink) *CoffeeMachine {
 	return &CoffeeMachine{drinkMaker: drinkMaker, drink: drink}
 }
 

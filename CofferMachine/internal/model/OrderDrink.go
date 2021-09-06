@@ -2,7 +2,7 @@ package model
 
 import "CofferMachine/internal/enums"
 
-type Drink struct {
+type OrderDrink struct {
 	DrinkType     enums.DrinkType
 	SugarQuantity int
 }
