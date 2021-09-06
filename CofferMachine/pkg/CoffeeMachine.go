@@ -1,22 +1,17 @@
 package pkg
 
 import (
-	"CofferMachine/internal/enums"
+	"CofferMachine/internal/model"
 	"fmt"
 	"strconv"
 )
 
-type Drink struct {
-	DrinkType enums.DrinkType
-	SugarQuantity int
-}
-
 type CoffeeMachine struct {
 	drinkMaker DrinkMaker
-	drink *Drink
+	drink *model.Drink
 }
 
-func NewCoffeeMachine(drinkMaker DrinkMaker, drink *Drink) *CoffeeMachine {
+func NewCoffeeMachine(drinkMaker DrinkMaker, drink *model.Drink) *CoffeeMachine {
 	return &CoffeeMachine{drinkMaker: drinkMaker, drink: drink}
 }
 
