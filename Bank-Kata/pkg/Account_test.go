@@ -5,6 +5,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console(t *testing.T) {
@@ -30,5 +31,7 @@ func Test_should_deposit_an_amount_of_money(t *testing.T) {
 	account.deposit(givenADepositMoney)
 
 	assert.Equal(t, givenADepositMoney, account.GetBalance())
+	assert.Equal(t, givenADepositMoney, account.GetAmount())
+	assert.Equal(t, time.Now().Format("DD/MM/YYYY"), account.GetDate())
 }
 
