@@ -30,8 +30,10 @@ func Test_should_deposit_an_amount_of_money(t *testing.T) {
 
 	account.deposit(givenADepositMoney)
 
-	assert.Equal(t, givenADepositMoney, account.GetBalance())
-	assert.Equal(t, givenADepositMoney, account.GetAmount())
-	assert.Equal(t, time.Now().Format("DD/MM/YYYY"), account.GetDate())
+	transaction := Transaction{
+		amount:          givenADepositMoney,
+		balance:         givenADepositMoney,
+		timeTransaction: time.Now().Format("02-01-2006")}
+	assert.Equal(t, transaction, account.Transaction())
 }
 

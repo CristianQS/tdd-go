@@ -3,31 +3,21 @@ package pkg
 import "time"
 
 type Account struct {
-	balance int
-	timeTransaction time.Time
-	amount int
+	transaction Transaction
 }
 
+func (a *Account) Transaction() Transaction {
+	return a.transaction
+}
 
 func (a *Account) deposit(amount int) {
-	a.balance += amount
-	a.amount = amount
-	a.timeTransaction = time.Now()
+	a.transaction.balance += amount
+	a.transaction.amount = amount
+	a.transaction.timeTransaction = time.Now().Format("02-01-2006")
 }
 
 func (a *Account) withdraw(amount int) {
 }
 
 func (a *Account) printStatement() {
-}
-
-func (a *Account) GetDate() string {
-	return a.timeTransaction.Format("DD/MM/YYYY")
-}
-func (a *Account) GetBalance() int {
-	return a.balance
-}
-
-func (a *Account) GetAmount() int {
-	return a.amount
 }
