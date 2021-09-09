@@ -20,6 +20,11 @@ func (a *Account) deposit(amount int) {
 }
 
 func (a *Account) withdraw(amount int) {
+	a.ActualBalance -= amount
+	a.Transactions = append(a.Transactions, &Transaction {
+		Amount:  -amount,
+		Balance: a.ActualBalance,
+		Time:    time.Now().Format("02-01-2006")})
 }
 
 func (a *Account) printStatement() {
