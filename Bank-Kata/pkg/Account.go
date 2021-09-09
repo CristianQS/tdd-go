@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"bankkata/pkg/Infraestructure"
+	"fmt"
 	"time"
 )
 
@@ -37,4 +38,8 @@ func (a *Account) withdraw(amount int) {
 
 func (a *Account) printStatement() {
 	a.logger.Print("DATE | AMOUNT | BALANCE")
+	for _, transaction := range a.Transactions {
+		var result = fmt.Sprintf("%s | %v | %v", transaction.Time, transaction.Amount, transaction.Balance)
+		a.logger.Print(result)
+	}
 }
