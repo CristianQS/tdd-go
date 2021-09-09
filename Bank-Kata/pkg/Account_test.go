@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"bankkata/pkg/Mocks"
+	"fmt"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -15,11 +16,11 @@ func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console
 	ctrl := gomock.NewController(t)
 	console := Mocks.NewMockLogger(ctrl)
 	account := NewAccount(console)
-
+	ActualTime := time.Now().Format("02/01/2006")
 	//THEN
 	console.EXPECT().Print(gomock.Eq("DATE | AMOUNT | BALANCE")).Times(1)
-	console.EXPECT().Print(gomock.Eq("09/09/2021 | 300 | 300")).Times(1)
-	console.EXPECT().Print(gomock.Eq("09/09/2021 | -100 | 200")).Times(1)
+	console.EXPECT().Print(gomock.Eq(CreateTransactionInfo(ActualTime, givenADepositMoney,givenADepositMoney))).Times(1)
+	console.EXPECT().Print(gomock.Eq(CreateTransactionInfo(ActualTime, -givenAWithdrawMoney,givenADepositMoney-givenAWithdrawMoney))).Times(1)
 
 	//WHEN
 	account.deposit(givenADepositMoney)
@@ -97,4 +98,7 @@ func Test_should_print_header_when_there_is_not_transaction(t *testing.T) {
 	account.printStatement()
 }
 
+func CreateTransactionInfo(ActualTime string, givenADepositMoney, balance int) string {
+	return fmt.Sprintf("%s | %v | %v", ActualTime, givenADepositMoney, balance)
+}
 
