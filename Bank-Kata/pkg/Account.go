@@ -1,10 +1,18 @@
 package pkg
 
-import "time"
+import (
+	"bankkata/pkg/Infraestructure"
+	"time"
+)
 
 type Account struct {
+	logger Infraestructure.Logger
 	Transactions  []*Transaction
 	ActualBalance int
+}
+
+func NewAccount(logger Infraestructure.Logger) *Account {
+	return &Account{logger: logger}
 }
 
 func (a *Account) GetTransactions() []*Transaction {
@@ -28,4 +36,5 @@ func (a *Account) withdraw(amount int) {
 }
 
 func (a *Account) printStatement() {
+	a.logger.Print("DATE | AMOUNT | BALANCE")
 }

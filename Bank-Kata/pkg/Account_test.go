@@ -9,19 +9,22 @@ import (
 )
 
 func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console(t *testing.T) {
+	//GIVEN
 	givenADepositMoney := 300
 	givenAWithdrawMoney := 100
-	account := Account{}
 	ctrl := gomock.NewController(t)
 	console := Mocks.NewMockLogger(ctrl)
+	account := NewAccount(console)
 
+	//THEN
+	console.EXPECT().Print(gomock.Eq("DATE | AMOUNT | BALANCE")).Times(1)
+	console.EXPECT().Print(gomock.Eq("09/09/2021 | 300 | 300")).Times(1)
+	console.EXPECT().Print(gomock.Eq("09/09/2021 | -100 | 200")).Times(1)
+
+	//WHEN
 	account.deposit(givenADepositMoney)
 	account.withdraw(givenAWithdrawMoney)
 	account.printStatement()
-
-	console.EXPECT().Print(gomock.Eq("DATE | AMOUNT | BALANCE")).Times(1)
-	console.EXPECT().Print(gomock.Eq("08/09/2021 | 300 | 300")).Times(1)
-	console.EXPECT().Print(gomock.Eq("08/09/2021 | -100 | 200")).Times(1)
 }
 
 func Test_should_deposit_an_amount_of_money(t *testing.T) {
@@ -79,4 +82,19 @@ func Test_should_withdraw_various_amounts_of_money_on_the_account(t *testing.T) 
 	assert.Equal(t, firstTransaction, account.GetTransactions()[0])
 	assert.Equal(t, withdrawTransaction, account.GetTransactions()[1])
 }
+
+
+func Test_should_print_header_when_there_is_not_transaction(t *testing.T) {
+	//GIVEN
+	ctrl := gomock.NewController(t)
+	console := Mocks.NewMockLogger(ctrl)
+	account := NewAccount(console)
+
+	//THEN
+	console.EXPECT().Print(gomock.Eq("DATE | AMOUNT | BALANCE")).Times(1)
+
+	//WHEN
+	account.printStatement()
+}
+
 
