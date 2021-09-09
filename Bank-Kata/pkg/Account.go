@@ -3,20 +3,20 @@ package pkg
 import "time"
 
 type Account struct {
-	transactions  []*Transaction
+	Transactions  []*Transaction
 	ActualBalance int
 }
 
 func (a *Account) GetTransactions() []*Transaction {
-	return a.transactions
+	return a.Transactions
 }
 
 func (a *Account) deposit(amount int) {
 	a.ActualBalance += amount
-	a.transactions = append(a.transactions, &Transaction {
-		amount: amount,
-		balance: a.ActualBalance,
-		timeTransaction: time.Now().Format("02-01-2006")})
+	a.Transactions = append(a.Transactions, &Transaction {
+		Amount:  amount,
+		Balance: a.ActualBalance,
+		Time:    time.Now().Format("02-01-2006")})
 }
 
 func (a *Account) withdraw(amount int) {

@@ -1,7 +1,7 @@
 package pkg
 
 type Transaction struct {
-	balance         int
-	timeTransaction string
-	amount          int
+	Balance int
+	Time   string
+	Amount int
 }
