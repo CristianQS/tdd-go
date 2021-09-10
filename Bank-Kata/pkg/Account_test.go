@@ -37,7 +37,7 @@ func Test_should_deposit_an_amount_of_money(t *testing.T) {
 	transaction := &Transaction{
 		Amount:  givenADepositMoney,
 		Balance: givenADepositMoney,
-		Time:    time.Now().Format("02/01/2006")}
+		Date:    time.Now().Format("02/01/2006")}
 	assert.Equal(t, transaction, account.GetTransactions()[0])
 }
 
@@ -52,12 +52,12 @@ func Test_should_deposit_various_amounts_of_money_on_the_account(t *testing.T) {
 	firstTransaction := &Transaction{
 		Amount:  givenADepositMoney,
 		Balance: givenADepositMoney,
-		Time:    time.Now().Format("02/01/2006")}
+		Date:    time.Now().Format("02/01/2006")}
 
 	secondTransaction := &Transaction{
 		Amount:  givenAnotherDepositMoney,
 		Balance: givenADepositMoney + givenAnotherDepositMoney,
-		Time:    time.Now().Format("02/01/2006")}
+		Date:    time.Now().Format("02/01/2006")}
 	assert.Equal(t, firstTransaction, account.GetTransactions()[0])
 	assert.Equal(t, secondTransaction, account.GetTransactions()[1])
 }
@@ -74,12 +74,12 @@ func Test_should_withdraw_various_amounts_of_money_on_the_account(t *testing.T) 
 	firstTransaction := &Transaction{
 		Amount:  givenADepositMoney,
 		Balance: givenADepositMoney,
-		Time:    time.Now().Format("02/01/2006")}
+		Date:    time.Now().Format("02/01/2006")}
 
 	withdrawTransaction := &Transaction{
 		Amount:  -givenWithdraw,
 		Balance: givenADepositMoney - givenWithdraw,
-		Time:    time.Now().Format("02/01/2006")}
+		Date:    time.Now().Format("02/01/2006")}
 	assert.Equal(t, firstTransaction, account.GetTransactions()[0])
 	assert.Equal(t, withdrawTransaction, account.GetTransactions()[1])
 }
