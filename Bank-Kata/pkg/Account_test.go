@@ -9,6 +9,9 @@ import (
 	"time"
 )
 
+var builder = &TransactionBuilder{}
+
+
 func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console(t *testing.T) {
 	//GIVEN
 	givenADepositMoney := 300
@@ -34,10 +37,11 @@ func Test_should_deposit_an_amount_of_money(t *testing.T) {
 
 	account.deposit(givenADepositMoney)
 
-	transaction := &Transaction{
-		Amount:  givenADepositMoney,
-		Balance: givenADepositMoney,
-		Date:    time.Now().Format("02/01/2006")}
+	transaction := builder.
+		WithAmount(givenADepositMoney).
+		WithBalance(givenADepositMoney).
+		WithDate(time.Now().Format("02/01/2006")).
+		Build()
 	assert.Equal(t, transaction, account.GetTransactions()[0])
 }
 
@@ -48,16 +52,18 @@ func Test_should_deposit_various_amounts_of_money_on_the_account(t *testing.T) {
 
 	account.deposit(givenADepositMoney)
 	account.deposit(givenAnotherDepositMoney)
+	firstTransaction := builder.
+		WithAmount(givenADepositMoney).
+		WithBalance(givenADepositMoney).
+		WithDate(time.Now().Format("02/01/2006")).
+		Build()
 
-	firstTransaction := &Transaction{
-		Amount:  givenADepositMoney,
-		Balance: givenADepositMoney,
-		Date:    time.Now().Format("02/01/2006")}
-
-	secondTransaction := &Transaction{
-		Amount:  givenAnotherDepositMoney,
-		Balance: givenADepositMoney + givenAnotherDepositMoney,
-		Date:    time.Now().Format("02/01/2006")}
+	secondTransaction := builder.
+		WithAmount(givenAnotherDepositMoney).
+		WithBalance(givenADepositMoney+givenAnotherDepositMoney).
+		WithDate(time.Now().Format("02/01/2006")).
+		Build()
+	
 	assert.Equal(t, firstTransaction, account.GetTransactions()[0])
 	assert.Equal(t, secondTransaction, account.GetTransactions()[1])
 }
@@ -71,15 +77,18 @@ func Test_should_withdraw_various_amounts_of_money_on_the_account(t *testing.T) 
 	account.deposit(givenADepositMoney)
 	account.withdraw(givenWithdraw)
 
-	firstTransaction := &Transaction{
-		Amount:  givenADepositMoney,
-		Balance: givenADepositMoney,
-		Date:    time.Now().Format("02/01/2006")}
+	firstTransaction := builder.
+		WithAmount(givenADepositMoney).
+		WithBalance(givenADepositMoney).
+		WithDate(time.Now().Format("02/01/2006")).
+		Build()
 
-	withdrawTransaction := &Transaction{
-		Amount:  -givenWithdraw,
-		Balance: givenADepositMoney - givenWithdraw,
-		Date:    time.Now().Format("02/01/2006")}
+	withdrawTransaction := builder.
+		WithAmount(-givenWithdraw).
+		WithBalance( givenADepositMoney - givenWithdraw).
+		WithDate(time.Now().Format("02/01/2006")).
+		Build()
+
 	assert.Equal(t, firstTransaction, account.GetTransactions()[0])
 	assert.Equal(t, withdrawTransaction, account.GetTransactions()[1])
 }
