@@ -1,5 +1,7 @@
 package pkg
 
+import "bankkata/pkg/Model"
+
 type TransactionBuilder struct {
 	Balance int
 	Amount  int
@@ -21,8 +23,8 @@ func (t *TransactionBuilder)WithDate(date string) *TransactionBuilder {
 	return t
 }
 
-func (t *TransactionBuilder) Build() *Transaction {
-	return &Transaction{
+func (t *TransactionBuilder) Build() *Model.Transaction {
+	return &Model.Transaction{
 		Amount: t.Amount,
 		Balance: t.Balance,
 		Date: t.Date,

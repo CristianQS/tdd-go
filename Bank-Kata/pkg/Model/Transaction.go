@@ -1,4 +1,4 @@
-package pkg
+package Model
 
 type Transaction struct {
 	Balance int
