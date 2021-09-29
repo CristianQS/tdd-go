@@ -1,4 +1,4 @@
-package pkg
+package Builders
 
 import "bankkata/pkg/Model"
 

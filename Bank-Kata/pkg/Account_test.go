@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"bankkata/pkg/Builders"
 	"bankkata/pkg/Mocks"
 	model "bankkata/pkg/Model"
 	"fmt"
@@ -9,7 +10,7 @@ import (
 	"time"
 )
 
-var builder = &TransactionBuilder{}
+var builder = &Builders.TransactionBuilder{}
 
 func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console(t *testing.T) {
 	//GIVEN
@@ -43,69 +44,6 @@ func Test_should_deposit_and_withdraw_an_amount_of_money_and_print_it_in_console
 	account.withdraw(givenAWithdrawMoney)
 	account.printStatement()
 }
-//
-//func Test_should_deposit_an_amount_of_money(t *testing.T) {
-//	givenADepositMoney := 300
-//	account := Account{}
-//
-//	account.deposit(givenADepositMoney)
-//
-//	transaction := builder.
-//		WithAmount(givenADepositMoney).
-//		WithBalance(givenADepositMoney).
-//		WithDate(time.Now().Format("02/01/2006")).
-//		Build()
-//	assert.Equal(t, transaction, account.transactionStore.GetTransactions()[0])
-//}
-//
-//func Test_should_deposit_various_amounts_of_money_on_the_account(t *testing.T) {
-//	givenADepositMoney := 300
-//	givenAnotherDepositMoney := 200
-//	account := Account{}
-//
-//	account.deposit(givenADepositMoney)
-//	account.deposit(givenAnotherDepositMoney)
-//	firstTransaction := builder.
-//		WithAmount(givenADepositMoney).
-//		WithBalance(givenADepositMoney).
-//		WithDate(time.Now().Format("02/01/2006")).
-//		Build()
-//
-//	secondTransaction := builder.
-//		WithAmount(givenAnotherDepositMoney).
-//		WithBalance(givenADepositMoney+givenAnotherDepositMoney).
-//		WithDate(time.Now().Format("02/01/2006")).
-//		Build()
-//
-//	assert.Equal(t, firstTransaction, account.transactionStore.GetTransactions()[0])
-//	assert.Equal(t, secondTransaction, account.transactionStore.GetTransactions()[1])
-//}
-//
-//
-//func Test_should_withdraw_various_amounts_of_money_on_the_account(t *testing.T) {
-//	givenADepositMoney := 300
-//	givenWithdraw := 100
-//	account := Account{}
-//
-//	account.deposit(givenADepositMoney)
-//	account.withdraw(givenWithdraw)
-//
-//	firstTransaction := builder.
-//		WithAmount(givenADepositMoney).
-//		WithBalance(givenADepositMoney).
-//		WithDate(time.Now().Format("02/01/2006")).
-//		Build()
-//
-//	withdrawTransaction := builder.
-//		WithAmount(-givenWithdraw).
-//		WithBalance( givenADepositMoney - givenWithdraw).
-//		WithDate(time.Now().Format("02/01/2006")).
-//		Build()
-//
-//	assert.Equal(t, firstTransaction, account.transactionStore.GetTransactions()[0])
-//	assert.Equal(t, withdrawTransaction, account.transactionStore.GetTransactions()[1])
-//}
-
 
 func Test_should_print_header_when_there_is_not_transaction(t *testing.T) {
 	//GIVEN
