@@ -36,3 +36,13 @@ func Test_should_create_a_chocolate_drink_with_two_sugar_and_one_stick_command(t
 
 	coffeeMachine.Execute()
 }
+
+func Test_should_creates_an_info_message_when_customer_order_it(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	mockDrinkMaker := NewMockDrinkMaker(ctrl)
+	var coffeeMachine = NewCoffeeMachine(mockDrinkMaker,&model.OrderDrink{DrinkType: enums.InfoMessage, Message: "content-message"})
+
+	mockDrinkMaker.EXPECT().execute(gomock.Eq("M:content-message")).Times(1)
+
+	coffeeMachine.Execute()
+}

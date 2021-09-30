@@ -6,4 +6,5 @@ const (
 	Coffee DrinkType = 'C'
 	Chocolate     = 'H'
 	Tea     = 'T'
+	InfoMessage = 'M'
 )

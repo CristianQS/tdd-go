@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"CofferMachine/internal/enums"
 	"CofferMachine/internal/model"
 	"fmt"
 	"strconv"
@@ -19,13 +20,19 @@ func (c *CoffeeMachine) Execute() {
 	var (
 		sugar string
 		sticks    string
+		order string
 	)
 
-	if c.drink.SugarQuantity > 0 {
+	if c.drink.SugarQuantity > 0{
 		sugar  = strconv.Itoa(c.drink.SugarQuantity)
 		sticks = "0"
 	}
-	c.drinkMaker.execute(c.CreateDrinkMakerOrder(string(c.drink.DrinkType), sugar, sticks))
+	if c.drink.DrinkType != enums.InfoMessage{
+		order = c.CreateDrinkMakerOrder(string(c.drink.DrinkType), sugar, sticks)
+	} else {
+		order = fmt.Sprintf("%s:%s", string(c.drink.DrinkType), c.drink.Message)
+	}
+	c.drinkMaker.execute(order)
 
 }
 
