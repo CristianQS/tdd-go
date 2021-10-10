@@ -32,15 +32,19 @@ func CreateDrinkMakerCommand(orderDrink *model.OrderDrink) string {
 		sticks = "0"
 	}
 	if IsInfoMessageOrder(orderDrink) {
-		drinkMakerCommand = WriteDrinkCommand(string(orderDrink.OrderType), sugar, sticks)
+		drinkMakerCommand = WriteMessageCommand(orderDrink)
 	} else {
-		drinkMakerCommand = fmt.Sprintf("%s:%s", string(orderDrink.OrderType), orderDrink.Message)
+		drinkMakerCommand = WriteDrinkCommand(string(orderDrink.OrderType), sugar, sticks)
 	}
 	return drinkMakerCommand
 }
 
+func WriteMessageCommand(orderDrink *model.OrderDrink) string {
+	return fmt.Sprintf("%s:%s", string(orderDrink.OrderType), orderDrink.Message)
+}
+
 func IsInfoMessageOrder(order *model.OrderDrink) bool {
-	return order.OrderType != enums.InfoMessage
+	return order.OrderType == enums.InfoMessage
 }
 
 func WriteDrinkCommand(character string, sugar string, sticks string) string {
