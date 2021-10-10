@@ -3,40 +3,47 @@ package pkg
 import (
 	"CofferMachine/internal/enums"
 	"CofferMachine/internal/model"
+	"CofferMachine/pkg/Infraestructure"
 	"fmt"
 	"strconv"
 )
 
 type CoffeeMachine struct {
-	drinkMaker DrinkMaker
-	drink *model.OrderDrink
+	drinkMaker Infraestructure.DrinkMaker
 }
 
-func NewCoffeeMachine(drinkMaker DrinkMaker, drink *model.OrderDrink) *CoffeeMachine {
-	return &CoffeeMachine{drinkMaker: drinkMaker, drink: drink}
+func NewCoffeeMachine(drinkMaker Infraestructure.DrinkMaker) *CoffeeMachine {
+	return &CoffeeMachine{drinkMaker: drinkMaker }
 }
 
-func (c *CoffeeMachine) Execute() {
+func (c *CoffeeMachine) Execute(orderDrink *model.OrderDrink) {
 	var (
 		sugar string
-		sticks    string
-		order string
+		sticks            string
+		drinkMakerCommand string
 	)
 
-	if c.drink.SugarQuantity > 0{
-		sugar  = strconv.Itoa(c.drink.SugarQuantity)
+	if orderDrink.SugarQuantity > 0{
+		sugar  = strconv.Itoa(orderDrink.SugarQuantity)
 		sticks = "0"
 	}
-	if c.drink.DrinkType != enums.InfoMessage{
-		order = c.CreateDrinkMakerOrder(string(c.drink.DrinkType), sugar, sticks)
+	if IsInfoMessageOrder(orderDrink) {
+		drinkMakerCommand = c.CreateDrinkMakerCommand(string(orderDrink.OrderType), sugar, sticks)
 	} else {
-		order = fmt.Sprintf("%s:%s", string(c.drink.DrinkType), c.drink.Message)
+		drinkMakerCommand = fmt.Sprintf("%s:%s", string(orderDrink.OrderType), orderDrink.Message)
 	}
-	c.drinkMaker.execute(order)
+	c.drinkMaker.Execute(drinkMakerCommand)
 
 }
 
-func (c *CoffeeMachine) CreateDrinkMakerOrder(character string, sugar string, sticks string) string {
+func IsInfoMessageOrder(order *model.OrderDrink) bool {
+	return order.OrderType != enums.InfoMessage
+}
+
+
+
+
+func (c *CoffeeMachine) CreateDrinkMakerCommand(character string, sugar string, sticks string) string {
 	return fmt.Sprintf("%s:%s:%s", character, sugar, sticks)
 }
 

@@ -1,10 +1,10 @@
 package enums
 
-type DrinkType byte
+type OrderType byte
 
 const (
-	Coffee DrinkType = 'C'
-	Chocolate     = 'H'
+	Coffee    OrderType = 'C'
+	Chocolate           = 'H'
 	Tea     = 'T'
 	InfoMessage = 'M'
 )
