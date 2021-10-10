@@ -17,33 +17,33 @@ func NewCoffeeMachine(drinkMaker Infraestructure.DrinkMaker) *CoffeeMachine {
 }
 
 func (c *CoffeeMachine) Execute(orderDrink *model.OrderDrink) {
+	drinkMakerCommand := CreateDrinkMakerCommand(orderDrink)
+	c.drinkMaker.Execute(drinkMakerCommand)
+}
+
+func CreateDrinkMakerCommand(orderDrink *model.OrderDrink) string {
 	var (
 		sugar string
 		sticks            string
 		drinkMakerCommand string
 	)
-
-	if orderDrink.SugarQuantity > 0{
-		sugar  = strconv.Itoa(orderDrink.SugarQuantity)
+	if orderDrink.SugarQuantity > 0 {
+		sugar = strconv.Itoa(orderDrink.SugarQuantity)
 		sticks = "0"
 	}
 	if IsInfoMessageOrder(orderDrink) {
-		drinkMakerCommand = c.CreateDrinkMakerCommand(string(orderDrink.OrderType), sugar, sticks)
+		drinkMakerCommand = WriteDrinkCommand(string(orderDrink.OrderType), sugar, sticks)
 	} else {
 		drinkMakerCommand = fmt.Sprintf("%s:%s", string(orderDrink.OrderType), orderDrink.Message)
 	}
-	c.drinkMaker.Execute(drinkMakerCommand)
-
+	return drinkMakerCommand
 }
 
 func IsInfoMessageOrder(order *model.OrderDrink) bool {
 	return order.OrderType != enums.InfoMessage
 }
 
-
-
-
-func (c *CoffeeMachine) CreateDrinkMakerCommand(character string, sugar string, sticks string) string {
+func WriteDrinkCommand(character string, sugar string, sticks string) string {
 	return fmt.Sprintf("%s:%s:%s", character, sugar, sticks)
 }
 
