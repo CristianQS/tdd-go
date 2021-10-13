@@ -17,26 +17,30 @@ func NewCoffeeMachine(drinkMaker Infraestructure.DrinkMaker) *CoffeeMachine {
 }
 
 func (c *CoffeeMachine) Execute(orderDrink *model.OrderDrink) {
-	drinkMakerCommand := CreateDrinkMakerCommand(orderDrink)
+	var (
+		drinkMakerCommand string
+	)
+	if IsInfoMessageOrder(orderDrink) {
+		drinkMakerCommand = WriteMessageCommand(orderDrink)
+	} else {
+		drinkMakerCommand = CreateDrinkMakerCommand(orderDrink)
+	}
 	c.drinkMaker.Execute(drinkMakerCommand)
 }
+
+type DrinkOrder struct {}
+type MessageOrder struct {}
 
 func CreateDrinkMakerCommand(orderDrink *model.OrderDrink) string {
 	var (
 		sugar string
-		sticks            string
-		drinkMakerCommand string
+		sticks string
 	)
 	if orderDrink.SugarQuantity > 0 {
 		sugar = strconv.Itoa(orderDrink.SugarQuantity)
 		sticks = "0"
 	}
-	if IsInfoMessageOrder(orderDrink) {
-		drinkMakerCommand = WriteMessageCommand(orderDrink)
-	} else {
-		drinkMakerCommand = WriteDrinkCommand(string(orderDrink.OrderType), sugar, sticks)
-	}
-	return drinkMakerCommand
+	return WriteDrinkCommand(string(orderDrink.OrderType), sugar, sticks)
 }
 
 func WriteMessageCommand(orderDrink *model.OrderDrink) string {
