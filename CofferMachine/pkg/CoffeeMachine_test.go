@@ -13,6 +13,7 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 	}{
 		{name: "Tea", drinkOrder: NewDrinkOrder("T"), expected:"T::" },
 		{name: "Chocolate", drinkOrder: NewDrinkOrder("H"),expected:"H::" },
+		{name: "Coffee", drinkOrder: NewDrinkOrder("C"),expected:"C::" },
 	}
 
 	for _, tc := range tests {
