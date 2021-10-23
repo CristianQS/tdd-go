@@ -11,6 +11,10 @@ func NewCoffeeMachine(drinkMaker DrinkMaker) *CoffeeMachine {
 }
 
 func (c *CoffeeMachine) Execute(drinkOrder *DrinkOrder) {
-	command := fmt.Sprintf("%s::", drinkOrder.character)
+	command := CreateDrinkMakerCommand(drinkOrder)
 	c.drinkMaker.execute(command)
+}
+
+func CreateDrinkMakerCommand(drinkOrder *DrinkOrder) string {
+	return fmt.Sprintf("%s::", drinkOrder.character)
 }
