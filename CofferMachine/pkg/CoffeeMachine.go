@@ -17,7 +17,7 @@ func (c *CoffeeMachine) Execute(drinkOrder *DrinkOrder) {
 
 func CreateDrinkMakerCommand(drinkOrder *DrinkOrder) string {
 	if drinkOrder.sugarQuantity > 0 {
-		return fmt.Sprintf("%s:%d:0", drinkOrder.character,drinkOrder.sugarQuantity)
+		return fmt.Sprintf("%s:%d:0", drinkOrder.drinkType,drinkOrder.sugarQuantity)
 	}
-	return fmt.Sprintf("%s::", drinkOrder.character)
+	return fmt.Sprintf("%s::", drinkOrder.drinkType)
 }

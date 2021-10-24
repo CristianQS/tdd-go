@@ -1,10 +1,12 @@
 package pkg
 
+import pkg "CofferMachine/pkg/model"
+
 type DrinkOrder struct {
-	character string
+	drinkType     pkg.DrinkType
 	sugarQuantity int
 }
 
-func NewDrinkOrder(character string, sugarQuantity int) *DrinkOrder {
-	return &DrinkOrder{character: character, sugarQuantity: sugarQuantity}
+func NewDrinkOrder(drinkType pkg.DrinkType, sugarQuantity int) *DrinkOrder {
+	return &DrinkOrder{drinkType: drinkType, sugarQuantity: sugarQuantity}
 }
