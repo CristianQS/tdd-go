@@ -5,7 +5,7 @@ import "fmt"
 type DrinkOrder struct {
 	character string
 	sugarQuantity int
-	provided float64
+	moneyProvided float64
 }
 
 var drinks = map[string]*Drink{
@@ -15,12 +15,12 @@ var drinks = map[string]*Drink{
 }
 
 func NewDrinkOrder(character string, sugarQuantity int, provided float64) *DrinkOrder {
-	return &DrinkOrder{character: character, sugarQuantity: sugarQuantity, provided: provided}
+	return &DrinkOrder{character: character, sugarQuantity: sugarQuantity, moneyProvided: provided}
 }
 
 func (d *DrinkOrder) CreateDrinkMakerCommand() string {
-	if drink := drinks[d.character]; d.provided < drink.cost {
-		missingMoney := drink.cost - d.provided
+	if drink := drinks[d.character]; d.moneyProvided < drink.cost {
+		missingMoney := drink.cost - d.moneyProvided
 		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
 	}
 	if d.sugarQuantity > 0 {
