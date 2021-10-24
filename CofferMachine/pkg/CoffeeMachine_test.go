@@ -88,4 +88,15 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 	}
 }
 
+func Test_create_orange_command_without_sugar(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	mockDrinkMaker := NewMockDrinkMaker(ctrl)
+	coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+
+	mockDrinkMaker.EXPECT().execute(gomock.Eq("O::")).Times(1)
+
+	coffeeMachine.Execute(NewOrder(pkg.Orange, 0, 0.6))
+
+}
+
 

@@ -2,7 +2,7 @@ package model
 
 import "fmt"
 
-type DrinkOrder struct {
+type HotDrinkOrder struct {
 	character string
 	sugarQuantity int
 	moneyProvided float64
@@ -14,11 +14,11 @@ var drinks = map[string]*Drink{
 	Coffee: NewDrink(Coffee,0.6),
 }
 
-func NewDrinkOrder(character string, sugarQuantity int, provided float64) *DrinkOrder {
-	return &DrinkOrder{character: character, sugarQuantity: sugarQuantity, moneyProvided: provided}
+func NewDrinkOrder(character string, sugarQuantity int, provided float64) *HotDrinkOrder {
+	return &HotDrinkOrder{character: character, sugarQuantity: sugarQuantity, moneyProvided: provided}
 }
 
-func (d *DrinkOrder) CreateDrinkMakerCommand() string {
+func (d *HotDrinkOrder) CreateDrinkMakerCommand() string {
 	if drink := drinks[d.character]; d.moneyProvided < drink.cost {
 		missingMoney := drink.cost - d.moneyProvided
 		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
