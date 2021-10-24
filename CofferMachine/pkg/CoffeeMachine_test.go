@@ -12,9 +12,9 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 		drinkOrder *Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 0), expected:"T::" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 0),expected:"H::" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 0),expected:"C::" },
+		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 0, 0), expected:"T::" },
+		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 0, 0),expected:"H::" },
+		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 0, 0),expected:"C::" },
 	}
 
 	for _, tc := range tests {
@@ -36,9 +36,9 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 		drinkOrder *Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 1), expected:"T:1:0" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 2),expected:"H:2:0" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 1),expected:"C:1:0" },
+		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 1, 0), expected:"T:1:0" },
+		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 2, 0),expected:"H:2:0" },
+		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 1, 0),expected:"C:1:0" },
 	}
 
 	for _, tc := range tests {
@@ -53,7 +53,6 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 		})
 	}
 }
-
 
 func Test_create_info_command(t *testing.T) {
 	ctrl := gomock.NewController(t)
