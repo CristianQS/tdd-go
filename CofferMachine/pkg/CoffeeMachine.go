@@ -1,6 +1,9 @@
 package pkg
 
-import "fmt"
+import (
+	pkg "CofferMachine/pkg/model"
+	"fmt"
+)
 
 type CoffeeMachine struct {
 	drinkMaker DrinkMaker
@@ -10,14 +13,17 @@ func NewCoffeeMachine(drinkMaker DrinkMaker) *CoffeeMachine {
 	return &CoffeeMachine{drinkMaker: drinkMaker}
 }
 
-func (c *CoffeeMachine) Execute(drinkOrder *DrinkOrder) {
+func (c *CoffeeMachine) Execute(drinkOrder *Order) {
 	command := CreateDrinkMakerCommand(drinkOrder)
 	c.drinkMaker.execute(command)
 }
 
-func CreateDrinkMakerCommand(drinkOrder *DrinkOrder) string {
-	if drinkOrder.sugarQuantity > 0 {
-		return fmt.Sprintf("%s:%d:0", drinkOrder.drinkType,drinkOrder.sugarQuantity)
+func CreateDrinkMakerCommand(order *Order) string {
+	if order.sugarQuantity > 0 {
+		return fmt.Sprintf("%s:%d:0", order.drinkType, order.sugarQuantity)
 	}
-	return fmt.Sprintf("%s::", drinkOrder.drinkType)
+	if order.drinkType == pkg.Message {
+		return fmt.Sprintf("%s:%s", order.drinkType, order.message)
+	}
+	return fmt.Sprintf("%s::", order.drinkType)
 }
