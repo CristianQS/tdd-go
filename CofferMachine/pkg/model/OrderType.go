@@ -1,10 +1,8 @@
 package model
 
-type OrderType string
-
 const (
-	Tea       OrderType = "T"
-	Chocolate OrderType = "H"
-	Coffee    OrderType = "C"
-	Message    OrderType = "M"
+	Tea       string = "T"
+	Chocolate string = "H"
+	Coffee    string = "C"
+	Message    string = "M"
 )
