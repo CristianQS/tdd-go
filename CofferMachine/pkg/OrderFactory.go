@@ -11,6 +11,6 @@ func (f *OrderFactory) create(order *Order) model.DegradableOrder {
 	case model.Orange:
 		return model.NewJuiceOrder(order.drinkType,order.moneyProvided)
 	default:
-		return model.NewDrinkOrder(order.drinkType,order.sugarQuantity, order.moneyProvided)
+		return model.NewHotDrinkOrder(order.drinkType,order.sugarQuantity,order.moneyProvided, order.extraHot)
 	}
 }

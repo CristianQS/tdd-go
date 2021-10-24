@@ -6,6 +6,7 @@ type HotDrinkOrder struct {
 	character string
 	sugarQuantity int
 	moneyProvided float64
+	extraHot bool
 }
 
 var drinks = map[string]*Drink{
@@ -14,8 +15,9 @@ var drinks = map[string]*Drink{
 	Coffee: NewDrink(Coffee,0.6),
 }
 
-func NewDrinkOrder(character string, sugarQuantity int, provided float64) *HotDrinkOrder {
-	return &HotDrinkOrder{character: character, sugarQuantity: sugarQuantity, moneyProvided: provided}
+func NewHotDrinkOrder(character string, sugarQuantity int, provided float64, extraHot bool) *HotDrinkOrder {
+	return &HotDrinkOrder{character: character, sugarQuantity: sugarQuantity, moneyProvided: provided,
+		extraHot: extraHot}
 }
 
 func (d *HotDrinkOrder) CreateDrinkMakerCommand() string {
@@ -24,7 +26,12 @@ func (d *HotDrinkOrder) CreateDrinkMakerCommand() string {
 		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
 	}
 	if d.sugarQuantity > 0 {
-		return fmt.Sprintf("%s:%d:0", d.character, d.sugarQuantity)
+		return fmt.Sprintf("%s%s:%d:0", d.character,d.isExtraHot(), d.sugarQuantity)
 	}
-	return fmt.Sprintf("%s::", d.character)
+	return fmt.Sprintf("%s%s::", d.character, d.isExtraHot())
+}
+
+func (d *HotDrinkOrder) isExtraHot() string {
+	if d.extraHot {return "h"}
+	return ""
 }

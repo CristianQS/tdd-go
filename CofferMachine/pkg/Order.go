@@ -1,14 +1,16 @@
 package pkg
 
 type Order struct {
-	drinkType	string
+	drinkType     string
 	sugarQuantity int
 	message string
 	moneyProvided float64
+	extraHot bool
 }
 
-func NewOrder(drinkType string, sugarQuantity int, moneyProvided float64) *Order {
-	return &Order{drinkType: drinkType, sugarQuantity: sugarQuantity, message: "", moneyProvided: moneyProvided}
+func NewOrder(drinkType string, sugarQuantity int, moneyProvided float64, isExtraHot bool) *Order {
+	return &Order{drinkType: drinkType, sugarQuantity: sugarQuantity, message: "",
+		moneyProvided: moneyProvided, extraHot: isExtraHot}
 }
 
 func NewOrderMessage(drinkType string, sugarQuantity int, message string) *Order {
