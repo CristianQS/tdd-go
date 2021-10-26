@@ -1,4 +1,4 @@
-package pkg
+package model
 
 type Order struct {
 	drinkType     string

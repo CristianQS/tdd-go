@@ -9,12 +9,12 @@ import (
 func Test_create_drink_command_without_sugar(t *testing.T) {
 	tests := []struct{
 		name string
-		drinkOrder *Order
+		drinkOrder *pkg.Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 0, 0.4, false), expected:"T::" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 0, 0.5, false),expected:"H::" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 0, 0.6, false),expected:"C::" },
+		{name: "Tea", drinkOrder: pkg.NewOrder(pkg.Tea, 0, 0.4, false), expected:"T::" },
+		{name: "Chocolate", drinkOrder: pkg.NewOrder(pkg.Chocolate, 0, 0.5, false),expected:"H::" },
+		{name: "Coffee", drinkOrder: pkg.NewOrder(pkg.Coffee, 0, 0.6, false),expected:"C::" },
 	}
 
 	for _, tc := range tests {
@@ -33,12 +33,12 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 func Test_create_drink_command_with_sugar(t *testing.T) {
 	tests := []struct{
 		name string
-		drinkOrder *Order
+		drinkOrder *pkg.Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 1, 0.4, false), expected:"T:1:0" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 2, 0.5, false),expected:"H:2:0" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 1, 0.6, false),expected:"C:1:0" },
+		{name: "Tea", drinkOrder: pkg.NewOrder(pkg.Tea, 1, 0.4, false), expected:"T:1:0" },
+		{name: "Chocolate", drinkOrder: pkg.NewOrder(pkg.Chocolate, 2, 0.5, false),expected:"H:2:0" },
+		{name: "Coffee", drinkOrder: pkg.NewOrder(pkg.Coffee, 1, 0.6, false),expected:"C:1:0" },
 	}
 
 	for _, tc := range tests {
@@ -61,18 +61,18 @@ func Test_create_info_command(t *testing.T) {
 
 	mockDrinkMaker.EXPECT().execute(gomock.Eq("M:info-message")).Times(1)
 
-	coffeeMachine.Execute(NewOrderMessage(pkg.Message,0,"info-message"))
+	coffeeMachine.Execute(pkg.NewOrderMessage(pkg.Message,0,"info-message"))
 }
 
 func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 	tests := []struct{
 		name string
-		drinkOrder *Order
+		drinkOrder *pkg.Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 1, 0.3, false), expected:"M:Missing 0.10 € to get your drink" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 2, 0.4, false),expected:"M:Missing 0.10 € to get your drink" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 1, 0.5, false),expected:"M:Missing 0.10 € to get your drink" },
+		{name: "Tea", drinkOrder: pkg.NewOrder(pkg.Tea, 1, 0.3, false), expected:"M:Missing 0.10 € to get your drink" },
+		{name: "Chocolate", drinkOrder: pkg.NewOrder(pkg.Chocolate, 2, 0.4, false),expected:"M:Missing 0.10 € to get your drink" },
+		{name: "Coffee", drinkOrder: pkg.NewOrder(pkg.Coffee, 1, 0.5, false),expected:"M:Missing 0.10 € to get your drink" },
 	}
 
 	for _, tc := range tests {
@@ -95,19 +95,19 @@ func Test_create_orange_command_without_sugar(t *testing.T) {
 
 	mockDrinkMaker.EXPECT().execute(gomock.Eq("O::")).Times(1)
 
-	coffeeMachine.Execute(NewOrder(pkg.Orange, 0, 0.6, false))
+	coffeeMachine.Execute(pkg.NewOrder(pkg.Orange, 0, 0.6, false))
 }
 
 
 func Test_create_extra_hot_drinks_command(t *testing.T) {
 	tests := []struct{
 		name string
-		drinkOrder *Order
+		drinkOrder *pkg.Order
 		expected string
 	}{
-		{name: "Tea", drinkOrder: NewOrder(pkg.Tea, 2, 0.4, true), expected:"Th:2:0" },
-		{name: "Chocolate", drinkOrder: NewOrder(pkg.Chocolate, 1, 0.5, true),expected:"Hh:1:0" },
-		{name: "Coffee", drinkOrder: NewOrder(pkg.Coffee, 0, 0.6, true),expected:"Ch::" },
+		{name: "Tea", drinkOrder: pkg.NewOrder(pkg.Tea, 2, 0.4, true), expected:"Th:2:0" },
+		{name: "Chocolate", drinkOrder: pkg.NewOrder(pkg.Chocolate, 1, 0.5, true),expected:"Hh:1:0" },
+		{name: "Coffee", drinkOrder: pkg.NewOrder(pkg.Coffee, 0, 0.6, true),expected:"Ch::" },
 	}
 
 	for _, tc := range tests {
