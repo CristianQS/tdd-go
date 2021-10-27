@@ -20,6 +20,6 @@ func (r *DrinkRepositoryInMemory) Add(order *model.Drink) {
 	}
 }
 
-func (DrinkRepositoryInMemory) GetOrders() map[model.Drink]int {
-	panic("implement me")
+func (r *DrinkRepositoryInMemory) GetDrinks() map[*model.Drink]int {
+	return r.drinks
 }

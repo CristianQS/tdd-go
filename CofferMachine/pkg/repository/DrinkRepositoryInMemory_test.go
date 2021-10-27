@@ -26,3 +26,20 @@ func Test_add_some_drink_to_repository(t *testing.T) {
 	assert.Equal(t,	repository.drinks[teaDrink],2)
 	assert.Equal(t,	repository.drinks[coffeeDrink],1)
 }
+
+func Test_get_all_drinks_from_repository(t *testing.T) {
+	repository := NewOrderRepositoryInMemory()
+	teaDrink := model.NewDrink(model.Tea, 0.4)
+	coffeeDrink := model.NewDrink(model.Coffee, 0.5)
+	expectedDrinks := map[*model.Drink]int{
+		teaDrink: 2,
+		coffeeDrink:1,
+	}
+
+	repository.Add(teaDrink)
+	repository.Add(teaDrink)
+	repository.Add(coffeeDrink)
+	drinks := repository.GetDrinks()
+
+	assert.Equal(t,	drinks,expectedDrinks)
+}

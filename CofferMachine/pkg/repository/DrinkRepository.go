@@ -6,5 +6,5 @@ import (
 
 type DrinkRepository interface {
 	Add(order *model.Drink)
-	GetOrders()map[model.Drink]int
+	GetDrinks()map[*model.Drink]int
 }
