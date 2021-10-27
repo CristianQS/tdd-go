@@ -15,14 +15,14 @@ func NewHotDrinkOrder(drink *Drink, sugarQuantity int, provided float64, extraHo
 }
 
 func (d *HotDrinkOrder) CreateDrinkMakerCommand() string {
-	if d.moneyProvided < d.drink.cost {
-		missingMoney := d.drink.cost - d.moneyProvided
+	if d.moneyProvided < d.drink.Cost {
+		missingMoney := d.drink.Cost - d.moneyProvided
 		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
 	}
 	if d.sugarQuantity > 0 {
-		return fmt.Sprintf("%s%s:%d:0", d.drink.id,d.isExtraHot(), d.sugarQuantity)
+		return fmt.Sprintf("%s%s:%d:0", d.drink.Id,d.isExtraHot(), d.sugarQuantity)
 	}
-	return fmt.Sprintf("%s%s::", d.drink.id, d.isExtraHot())
+	return fmt.Sprintf("%s%s::", d.drink.Id, d.isExtraHot())
 }
 
 func (d *HotDrinkOrder) isExtraHot() string {

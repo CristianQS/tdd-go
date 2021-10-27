@@ -12,10 +12,10 @@ func NewJuiceOrder(drink *Drink, moneyProvided float64) *JuiceOrder {
 }
 
 func (d *JuiceOrder) CreateDrinkMakerCommand() string {
-	if d.moneyProvided < d.drink.cost {
-		missingMoney := d.drink.cost - d.moneyProvided
+	if d.moneyProvided < d.drink.Cost {
+		missingMoney := d.drink.Cost - d.moneyProvided
 		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
 	}
-	return fmt.Sprintf("%s::", d.drink.id)
+	return fmt.Sprintf("%s::", d.drink.Id)
 }
 

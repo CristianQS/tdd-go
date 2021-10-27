@@ -1,10 +1,10 @@
 package model
 
 type Drink struct {
-	id string
-	cost float64
+	Id   string
+	Cost float64
 }
 
 func NewDrink(id string, cost float64) *Drink {
-	return &Drink{id: id, cost: cost}
+	return &Drink{Id: id, Cost: cost}
 }
