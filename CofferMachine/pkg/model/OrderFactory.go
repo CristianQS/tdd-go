@@ -4,12 +4,12 @@ type OrderFactory struct{}
 
 
 var hotDrinks = map[string]*Drink{
-	Tea: NewDrink(Tea,0.4),
-	Chocolate: NewDrink(Chocolate,0.5),
-	Coffee: NewDrink(Coffee,0.6),
+	Tea: NewDrink(Tea,"Tea",0.4),
+	Chocolate: NewDrink(Chocolate,"Chocolate",0.5),
+	Coffee: NewDrink(Coffee,"Coffee",0.6),
 }
 var juices = map[string]*Drink{
-	Orange: NewDrink(Orange,0.6),
+	Orange: NewDrink(Orange,"Orange",0.6),
 }
 
 func (f *OrderFactory) Create(order *Order) DegradableOrder {

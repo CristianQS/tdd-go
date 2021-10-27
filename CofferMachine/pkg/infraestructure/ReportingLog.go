@@ -21,7 +21,7 @@ func (r *ReportingLog) GetReport() {
 	totalAmount := 0.0
 	for drink, i := range drinks {
 		totalAmount += drink.Cost * float64(i)
-		r.logger.PrintLine(fmt.Sprintf("%s | %d",drink.Id, i))
+		r.logger.PrintLine(fmt.Sprintf("%s | %d",drink.Name, i))
 	}
 	r.logger.PrintLine(fmt.Sprintf("Total Money Earned: %0.2f",totalAmount))
 }
