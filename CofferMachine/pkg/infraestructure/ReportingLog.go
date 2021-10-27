@@ -1,17 +1,16 @@
 package infraestructure
 
 import (
-	"CofferMachine/pkg"
 	"CofferMachine/pkg/repository"
 	"fmt"
 )
 
 type ReportingLog struct{
-	logger pkg.Logger
+	logger          Logger
 	drinkRepository repository.DrinkRepository
 }
 
-func NewReportingLog(logger pkg.Logger, drinkRepository repository.DrinkRepository) *ReportingLog {
+func NewReportingLog(logger Logger, drinkRepository repository.DrinkRepository) *ReportingLog {
 	return &ReportingLog{logger: logger, drinkRepository: drinkRepository}
 }
 

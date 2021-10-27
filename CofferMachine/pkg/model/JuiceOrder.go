@@ -7,6 +7,10 @@ type JuiceOrder struct {
 	moneyProvided float64
 }
 
+func (d *JuiceOrder) GetDrink() *Drink {
+	return d.drink
+}
+
 func NewJuiceOrder(drink *Drink, moneyProvided float64) *JuiceOrder {
 	return &JuiceOrder{drink: drink, moneyProvided: moneyProvided}
 }

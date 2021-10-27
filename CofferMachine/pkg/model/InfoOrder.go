@@ -16,3 +16,9 @@ func NewInfoOrder(character string, message string) *InfoOrder {
 func (o *InfoOrder) CreateDrinkMakerCommand() string {
 	return fmt.Sprintf("%s:%s", o.character, o.message)
 }
+
+func (d *InfoOrder) GetDrink() *Drink {
+	return nil
+}
+
+

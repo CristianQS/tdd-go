@@ -1,7 +1,9 @@
 package pkg
 
 import (
+	"CofferMachine/pkg/infraestructure"
 	pkg "CofferMachine/pkg/model"
+	"CofferMachine/pkg/repository"
 	"github.com/golang/mock/gomock"
 	"testing"
 )
@@ -21,8 +23,12 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+			mockLogger := infraestructure.NewMockLogger(ctrl)
+			repositoryInMemory := repository.NewOrderRepositoryInMemory()
+			reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
+			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
 
 			coffeeMachine.Execute(tc.drinkOrder)
@@ -45,9 +51,13 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+			mockLogger := infraestructure.NewMockLogger(ctrl)
+			repositoryInMemory := repository.NewOrderRepositoryInMemory()
+			reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
 			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
+			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 
 			coffeeMachine.Execute(tc.drinkOrder)
 		})
@@ -57,8 +67,12 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 func Test_create_info_command(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+	mockLogger := infraestructure.NewMockLogger(ctrl)
+	repositoryInMemory := repository.NewOrderRepositoryInMemory()
+	reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
+	mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
 	mockDrinkMaker.EXPECT().execute(gomock.Eq("M:info-message")).Times(1)
 
 	coffeeMachine.Execute(pkg.NewOrderMessage(pkg.Message,0,"info-message"))
@@ -79,8 +93,12 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+			mockLogger := infraestructure.NewMockLogger(ctrl)
+			repositoryInMemory := repository.NewOrderRepositoryInMemory()
+			reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
+			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
 			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
 
 			coffeeMachine.Execute(tc.drinkOrder)
@@ -91,8 +109,12 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 func Test_create_orange_command_without_sugar(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+	mockLogger := infraestructure.NewMockLogger(ctrl)
+	repositoryInMemory := repository.NewOrderRepositoryInMemory()
+	reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
+	mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 	mockDrinkMaker.EXPECT().execute(gomock.Eq("O::")).Times(1)
 
 	coffeeMachine.Execute(pkg.NewOrder(pkg.Orange, 0, 0.6, false))
@@ -114,13 +136,34 @@ func Test_create_extra_hot_drinks_command(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			coffeeMachine := NewCoffeeMachine(mockDrinkMaker)
+			mockLogger := infraestructure.NewMockLogger(ctrl)
+			repositoryInMemory := repository.NewOrderRepositoryInMemory()
+			reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog)
 
+			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
 
 			coffeeMachine.Execute(tc.drinkOrder)
 		})
 	}
+}
+
+func Test_create_report_of_drinks_sold(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	mockDrinkMaker := NewMockDrinkMaker(ctrl)
+	mockLogger := infraestructure.NewMockLogger(ctrl)
+	repositoryInMemory := repository.NewOrderRepositoryInMemory()
+	reportingLog := infraestructure.NewReportingLog(mockLogger,repositoryInMemory)
+	coffeeMachine := NewCoffeeMachine(mockDrinkMaker,repositoryInMemory,reportingLog)
+	order := pkg.NewOrder(pkg.Orange, 0, 0.6, false)
+
+	mockDrinkMaker.EXPECT().execute(gomock.Any()).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Sold")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Orange | 1")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Total Money Earned: 0.60")).Times(1)
+
+	coffeeMachine.Execute(order)
 }
 
 

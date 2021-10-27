@@ -9,6 +9,10 @@ type HotDrinkOrder struct {
 	extraHot bool
 }
 
+func (d *HotDrinkOrder) GetDrink() *Drink {
+	return d.drink
+}
+
 func NewHotDrinkOrder(drink *Drink, sugarQuantity int, provided float64, extraHot bool) *HotDrinkOrder {
 	return &HotDrinkOrder{drink: drink, sugarQuantity: sugarQuantity, moneyProvided: provided,
 		extraHot: extraHot}
