@@ -17,7 +17,7 @@ func NewReportingLog(logger pkg.Logger, drinkRepository repository.DrinkReposito
 
 func (r *ReportingLog) GetReport() {
 	drinks := r.drinkRepository.GetDrinks()
-	r.logger.PrintLine("Drink | Soled")
+	r.logger.PrintLine("Drink | Sold")
 	totalAmount := 0.0
 	for drink, i := range drinks {
 		totalAmount += drink.Cost * float64(i)

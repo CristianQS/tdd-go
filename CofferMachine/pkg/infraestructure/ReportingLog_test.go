@@ -15,7 +15,7 @@ func Test_should_print_the_total_of_each_drink_was_sold(t *testing.T) {
 	expectedDrinks := GetExpectedDrinks()
 	mockRepository.EXPECT().GetDrinks().Return(expectedDrinks)
 
-	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Soled")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Sold")).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Tea | 2")).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Coffee | 1")).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Total Money Earned: 1.30")).Times(1)
