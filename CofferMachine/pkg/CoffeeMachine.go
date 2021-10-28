@@ -22,8 +22,12 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 	degradableOrder := factory.Create(order)
 	command := degradableOrder.CreateDrinkMakerCommand()
 	c.drinkMaker.execute(command)
-	if !strings.HasPrefix(command,"M:"){
+	if !IsOrderSold(command) {
 		c.repository.Add(degradableOrder.GetDrink())
 	}
 	c.reportingLog.GetReport()
+}
+
+func IsOrderSold(command string) bool {
+	return strings.HasPrefix(command, "M:")
 }
