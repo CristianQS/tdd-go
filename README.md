@@ -11,3 +11,6 @@ Kata to practice the importance of the test order.
 
 ## [Tire Pressure Variation](TirePressureVariation)
 Refactoring kata to start practicing with test doubles (spies and stubs).
+
+## [Coffee Machine](/coffee-machine/)
+Good kata to learn Outside-in TDD with test doubles
