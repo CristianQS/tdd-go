@@ -5,6 +5,6 @@ import "fmt"
 type ConsoleLogger struct {
 }
 
-func (c ConsoleLogger) log(message string) {
+func (c ConsoleLogger) Log(message string) {
 	fmt.Println(message)
 }

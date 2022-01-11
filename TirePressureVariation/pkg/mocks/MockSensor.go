@@ -1,4 +1,4 @@
-package pkg
+package mocks
 
 type MockSensor struct {
 	pressure float32

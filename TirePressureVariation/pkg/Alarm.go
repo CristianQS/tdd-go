@@ -1,18 +1,19 @@
 package pkg
 
+import "TirePressureVariation/pkg/mocks"
+
 type Alarm struct {
-	sensor  ISensor
-	logger  ILogger
+	sensor  mocks.ISensor
+	logger  mocks.ILogger
 	alarmOn bool
 }
 
-func NewAlarm(sensor ISensor, logger ILogger) *Alarm {
+func NewAlarm(sensor mocks.ISensor, logger mocks.ILogger) *Alarm {
 	return &Alarm{sensor: sensor, logger: logger, alarmOn: false}
 }
 
 const LowPressureThreshold float32 = 17
 const HighPressureThreshold float32 = 21
-
 
 func (a *Alarm) check() {
 	var psiPressureValue = a.sensor.PopNextPressurePsiValue()
@@ -20,12 +21,12 @@ func (a *Alarm) check() {
 	if psiPressureValue < LowPressureThreshold || HighPressureThreshold < psiPressureValue {
 		if !a.IsAlarmOn() {
 			a.alarmOn = true
-			a.logger.log("Alarm activated!")
+			a.logger.Log("Alarm activated!")
 		}
 	} else {
 		if a.IsAlarmOn() {
 			a.alarmOn = false
-			a.logger.log("Alarm deactivated!")
+			a.logger.Log("Alarm deactivated!")
 		}
 	}
 }

@@ -2,7 +2,7 @@
 // Source: ISensor.go
 
 // Package mock_pkg is a generated GoMock package.
-package pkg
+package mocks
 
 import (
 	reflect "reflect"

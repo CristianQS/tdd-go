@@ -2,7 +2,7 @@
 // Source: ILogger.go
 
 // Package mock_pkg is a generated GoMock package.
-package pkg
+package mocks
 
 import (
 	reflect "reflect"
@@ -34,13 +34,13 @@ func (m *MockILogger) EXPECT() *MockILoggerMockRecorder {
 }
 
 // log mocks base method.
-func (m *MockILogger) log(message string) {
+func (m *MockILogger) Log(message string) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "log", message)
+	m.ctrl.Call(m, "Log", message)
 }
 
 // log indicates an expected call of log.
-func (mr *MockILoggerMockRecorder) log(message interface{}) *gomock.Call {
+func (mr *MockILoggerMockRecorder) Log(message interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "log", reflect.TypeOf((*MockILogger)(nil).log), message)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Log", reflect.TypeOf((*MockILogger)(nil).Log), message)
 }
