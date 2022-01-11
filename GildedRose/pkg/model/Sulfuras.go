@@ -1,7 +1,7 @@
-package pkg
+package model
 
 type Sulfuras struct {
-	item *Item
+	Item *Item
 }
 
 func (s *Sulfuras) Degrade() {

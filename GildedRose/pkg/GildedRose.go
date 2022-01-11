@@ -1,7 +1,9 @@
 package pkg
 
+import "GildedRose/pkg/model"
+
 type GildedRose struct {
-	items []*Item
+	items []*model.Item
 }
 
 func (g *GildedRose) UpdateQuality() {

@@ -1,17 +1,18 @@
 package pkg
 
-func create(item *Item) DegradableItem{
-	switch item.name {
+import "GildedRose/pkg/model"
+
+func create(item *model.Item) model.DegradableItem {
+	switch item.Name {
 	case "Sulfuras, Hand of Ragnaros":
-		return &Sulfuras{item: item}
+		return &model.Sulfuras{Item: item}
 	case "Aged Brie":
-		return &AgedBrieItem{item: item}
+		return &model.AgedBrieItem{Item: item}
 	case "Backstage passes to a TAFKAL80ETC concert":
-		return &BackstageItem{item: item}
+		return &model.BackstageItem{Item: item}
 	case "Conjured":
-		return &ConjuredItem{item: item}
+		return &model.ConjuredItem{Item: item}
 	default:
-		return &NormalItem{item: item}
+		return &model.NormalItem{Item: item}
 	}
 }
-
