@@ -22,13 +22,17 @@ func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold(t *testi
 
 // https://blog.codecentric.de/en/2017/08/gomock-tutorial/
 func Test_should_alarm_be_activated_when_sensor_is_lower_than_threshold_gomock(t *testing.T) {
+	// GIVEN
 	ctrl := gomock.NewController(t)
 	sensor := mocks.NewMockISensor(ctrl)
 	logger := mocks.NewMockILogger(ctrl)
 	alarm := NewAlarm(sensor, logger)
+
+	// WHEN
 	sensor.EXPECT().PopNextPressurePsiValue().Return(float32(16))
 	logger.EXPECT().Log("Alarm activated!").Times(1)
 
+	// THEN
 	alarm.check()
 }
 
