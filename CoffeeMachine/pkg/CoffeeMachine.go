@@ -8,10 +8,10 @@ import (
 )
 
 type CoffeeMachine struct {
-	drinkMaker DrinkMaker
-	repository repository.DrinkRepository
-	reportingLog *infraestructure.ReportingLog
-	emailNotifier infraestructure.EmailNotifier
+	drinkMaker              DrinkMaker
+	repository              repository.DrinkRepository
+	reportingLog            *infraestructure.ReportingLog
+	emailNotifier           infraestructure.EmailNotifier
 	beverageQuantityChecker infraestructure.BeverageQuantityChecker
 }
 
@@ -25,15 +25,15 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 	factory := model.OrderFactory{}
 	degradableOrder := factory.Create(order)
 	drink := degradableOrder.GetDrink()
-	if  drink != nil {
-		if c.beverageQuantityChecker.IsEmpty(drink.Name){
+	if drink != nil {
+		if c.beverageQuantityChecker.IsEmpty(drink.Name) {
 			c.emailNotifier.NotifyMissingDrink(drink.Name)
-			c.drinkMaker.execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
+			c.drinkMaker.Execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
 			return
 		}
 	}
 	command := degradableOrder.CreateDrinkMakerCommand()
-	c.drinkMaker.execute(command)
+	c.drinkMaker.Execute(command)
 	if !IsOrderSold(command) {
 		c.repository.Add(drink)
 	}

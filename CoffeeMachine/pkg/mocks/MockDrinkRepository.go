@@ -2,7 +2,7 @@
 // Source: DrinkRepository.go
 
 // Package mock_repository is a generated GoMock package.
-package repository
+package mocks
 
 import (
 	model "CofferMachine/pkg/model"

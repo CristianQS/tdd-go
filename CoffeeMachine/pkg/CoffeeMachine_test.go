@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"CofferMachine/pkg/infraestructure"
+	"CofferMachine/pkg/mocks"
 	pkg "CofferMachine/pkg/model"
 	"CofferMachine/pkg/repository"
 	"github.com/golang/mock/gomock"
@@ -23,10 +24,10 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			// GIVEN
 			ctrl := gomock.NewController(t)
-			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			mockLogger := infraestructure.NewMockLogger(ctrl)
-			mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-			mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+			mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+			mockLogger := mocks.NewMockLogger(ctrl)
+			mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+			mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 			repositoryInMemory := repository.NewOrderRepositoryInMemory()
 			reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
@@ -34,7 +35,7 @@ func Test_create_drink_command_without_sugar(t *testing.T) {
 			// WHEN
 			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
-			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
+			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 
 			// THEN
 			coffeeMachine.Execute(tc.drinkOrder)
@@ -57,17 +58,17 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			// GIVEN
 			ctrl := gomock.NewController(t)
-			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			mockLogger := infraestructure.NewMockLogger(ctrl)
+			mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+			mockLogger := mocks.NewMockLogger(ctrl)
 			repositoryInMemory := repository.NewOrderRepositoryInMemory()
-			mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-			mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+			mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+			mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 			reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
 			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
-			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
+			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 
 			// THEN
@@ -79,17 +80,17 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 func Test_create_info_command(t *testing.T) {
 	// GIVEN
 	ctrl := gomock.NewController(t)
-	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	mockLogger := infraestructure.NewMockLogger(ctrl)
+	mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+	mockLogger := mocks.NewMockLogger(ctrl)
 	repositoryInMemory := repository.NewOrderRepositoryInMemory()
 	reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-	mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-	mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+	mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+	mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 	// WHEN
 	mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
-	mockDrinkMaker.EXPECT().execute(gomock.Eq("M:info-message")).Times(1)
+	mockDrinkMaker.EXPECT().Execute(gomock.Eq("M:info-message")).Times(1)
 
 	// THEN
 	coffeeMachine.Execute(pkg.NewOrderMessage(pkg.Message, 0, "info-message"))
@@ -110,18 +111,18 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
-			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			mockLogger := infraestructure.NewMockLogger(ctrl)
+			mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+			mockLogger := mocks.NewMockLogger(ctrl)
 			repositoryInMemory := repository.NewOrderRepositoryInMemory()
 			reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-			mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-			mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+			mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+			mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
 			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
-			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
+			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 
 			// THEN
 			coffeeMachine.Execute(tc.drinkOrder)
@@ -132,18 +133,18 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 func Test_create_orange_command_without_sugar(t *testing.T) {
 	// GIVEN
 	ctrl := gomock.NewController(t)
-	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	mockLogger := infraestructure.NewMockLogger(ctrl)
+	mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+	mockLogger := mocks.NewMockLogger(ctrl)
 	repositoryInMemory := repository.NewOrderRepositoryInMemory()
 	reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-	mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-	mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+	mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+	mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 	// WHEN
 	mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq("Orange")).Return(false)
 	mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
-	mockDrinkMaker.EXPECT().execute(gomock.Eq("O::")).Times(1)
+	mockDrinkMaker.EXPECT().Execute(gomock.Eq("O::")).Times(1)
 
 	// THEN
 	coffeeMachine.Execute(pkg.NewOrder(pkg.Orange, 0, 0.6, false))
@@ -164,18 +165,18 @@ func Test_create_extra_hot_drinks_command(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
-			mockDrinkMaker := NewMockDrinkMaker(ctrl)
-			mockLogger := infraestructure.NewMockLogger(ctrl)
+			mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+			mockLogger := mocks.NewMockLogger(ctrl)
 			repositoryInMemory := repository.NewOrderRepositoryInMemory()
 			reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-			mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-			mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+			mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+			mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
 			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
-			mockDrinkMaker.EXPECT().execute(gomock.Eq(tc.expected)).Times(1)
+			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 
 			// THEN
 			coffeeMachine.Execute(tc.drinkOrder)
@@ -186,18 +187,18 @@ func Test_create_extra_hot_drinks_command(t *testing.T) {
 func Test_create_report_of_drinks_sold(t *testing.T) {
 	// GIVEN
 	ctrl := gomock.NewController(t)
-	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	mockLogger := infraestructure.NewMockLogger(ctrl)
+	mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+	mockLogger := mocks.NewMockLogger(ctrl)
 	repositoryInMemory := repository.NewOrderRepositoryInMemory()
 	reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-	mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-	mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+	mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+	mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 	order := pkg.NewOrder(pkg.Orange, 0, 0.6, false)
 
 	// WHEN
 	mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq("Orange")).Return(false)
-	mockDrinkMaker.EXPECT().execute(gomock.Any()).Times(1)
+	mockDrinkMaker.EXPECT().Execute(gomock.Any()).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Sold")).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Orange | 1")).Times(1)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Total Money Earned: 0.60")).Times(1)
@@ -209,19 +210,19 @@ func Test_create_report_of_drinks_sold(t *testing.T) {
 func Test_should_print_in_console_the_shortage_and_email_notification_when_BeverageQuantity_is_empty(t *testing.T) {
 	// GIVEN
 	ctrl := gomock.NewController(t)
-	mockDrinkMaker := NewMockDrinkMaker(ctrl)
-	mockLogger := infraestructure.NewMockLogger(ctrl)
+	mockDrinkMaker := mocks.NewMockDrinkMaker(ctrl)
+	mockLogger := mocks.NewMockLogger(ctrl)
 	repositoryInMemory := repository.NewOrderRepositoryInMemory()
 	reportingLog := infraestructure.NewReportingLog(mockLogger, repositoryInMemory)
-	mockEmailNotifier := infraestructure.NewMockEmailNotifier(ctrl)
-	mockBeverageQuantityChecker := infraestructure.NewMockBeverageQuantityChecker(ctrl)
+	mockEmailNotifier := mocks.NewMockEmailNotifier(ctrl)
+	mockBeverageQuantityChecker := mocks.NewMockBeverageQuantityChecker(ctrl)
 	coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 	order := pkg.NewOrder(pkg.Orange, 0, 0.6, false)
 
 	// WHEN
 	mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq("Orange")).Return(true)
 	mockEmailNotifier.EXPECT().NotifyMissingDrink(gomock.Eq("Orange")).Times(1)
-	mockDrinkMaker.EXPECT().execute(gomock.Eq("M:The drink selected is empty, we have already sent an email to refilled your drink :)")).Times(1)
+	mockDrinkMaker.EXPECT().Execute(gomock.Eq("M:The drink selected is empty, we have already sent an email to refilled your drink :)")).Times(1)
 
 	// THEN
 	coffeeMachine.Execute(order)

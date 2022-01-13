@@ -2,7 +2,7 @@
 // Source: ../Logger.go
 
 // Package mock_pkg is a generated GoMock package.
-package infraestructure
+package mocks
 
 import (
 	reflect "reflect"

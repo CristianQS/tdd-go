@@ -1,5 +1,5 @@
 package pkg
 
 type DrinkMaker interface {
-	execute(command string)
+	Execute(command string)
 }

@@ -2,7 +2,7 @@
 // Source: EmailNotifier.go
 
 // Package mock_infraestructure is a generated GoMock package.
-package infraestructure
+package mocks
 
 import (
 	reflect "reflect"

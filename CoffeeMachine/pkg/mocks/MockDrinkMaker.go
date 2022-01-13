@@ -2,7 +2,7 @@
 // Source: DrinkMaker.go
 
 // Package mock_pkg is a generated GoMock package.
-package pkg
+package mocks
 
 import (
 	reflect "reflect"
@@ -33,14 +33,14 @@ func (m *MockDrinkMaker) EXPECT() *MockDrinkMakerMockRecorder {
 	return m.recorder
 }
 
-// execute mocks base method.
-func (m *MockDrinkMaker) execute(command string) {
+// Execute mocks base method.
+func (m *MockDrinkMaker) Execute(command string) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "execute", command)
+	m.ctrl.Call(m, "Execute", command)
 }
 
-// execute indicates an expected call of execute.
-func (mr *MockDrinkMakerMockRecorder) execute(command interface{}) *gomock.Call {
+// Execute indicates an expected call of Execute.
+func (mr *MockDrinkMakerMockRecorder) Execute(command interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "execute", reflect.TypeOf((*MockDrinkMaker)(nil).execute), command)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Execute", reflect.TypeOf((*MockDrinkMaker)(nil).Execute), command)
 }
