@@ -32,7 +32,7 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 	}
 	command := degradableOrder.CreateDrinkMakerCommand()
 	c.drinkMaker.Execute(command)
-	if !IsOrderSold(command) {
+	if !IsMessageOrder(command) {
 		c.repository.Add(drink)
 	}
 	c.reportingLog.GetReport()
@@ -47,6 +47,6 @@ func (c *CoffeeMachine) IsDrinkEmpty(drink *model.Drink) bool {
 	return false
 }
 
-func IsOrderSold(command string) bool {
+func IsMessageOrder(command string) bool {
 	return strings.HasPrefix(command, "M:")
 }
