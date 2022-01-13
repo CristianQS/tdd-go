@@ -2,22 +2,29 @@ package model
 
 type OrderFactory struct{}
 
-
 var hotDrinks = map[string]*Drink{
-	Tea: NewDrink(Tea,"Tea",0.4),
-	Chocolate: NewDrink(Chocolate,"Chocolate",0.5),
-	Coffee: NewDrink(Coffee,"Coffee",0.6),
+	Tea:       NewDrink(Tea, "Tea", 0.4),
+	Chocolate: NewDrink(Chocolate, "Chocolate", 0.5),
+	Coffee:    NewDrink(Coffee, "Coffee", 0.6),
 }
 var juices = map[string]*Drink{
-	Orange: NewDrink(Orange,"Orange",0.6),
+	Orange: NewDrink(Orange, "Orange", 0.6),
 }
 
 func (f *OrderFactory) Create(order *Order) DegradableOrder {
-	if hotDrinks[order.drinkType] != nil {
-		return NewHotDrinkOrder(hotDrinks[order.drinkType],order.sugarQuantity,order.moneyProvided, order.extraHot)
+	if IsAHotDrink(order) {
+		return NewHotDrinkOrder(hotDrinks[order.drinkType], order.sugarQuantity, order.moneyProvided, order.extraHot)
 	}
-	if juices[order.drinkType] != nil {
-		return NewJuiceOrder(juices[order.drinkType],order.moneyProvided)
+	if IsAJuice(order) != nil {
+		return NewJuiceOrder(juices[order.drinkType], order.moneyProvided)
 	}
-	return NewInfoOrder(order.drinkType,order.message)
+	return NewInfoOrder(order.drinkType, order.message)
+}
+
+func IsAJuice(order *Order) *Drink {
+	return juices[order.drinkType]
+}
+
+func IsAHotDrink(order *Order) bool {
+	return hotDrinks[order.drinkType] != nil
 }

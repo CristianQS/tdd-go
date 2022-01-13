@@ -26,9 +26,7 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 	degradableOrder := factory.Create(order)
 	drink := degradableOrder.GetDrink()
 	if drink != nil {
-		if c.beverageQuantityChecker.IsEmpty(drink.Name) {
-			c.emailNotifier.NotifyMissingDrink(drink.Name)
-			c.drinkMaker.Execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
+		if c.IsDrinkEmpty(drink) {
 			return
 		}
 	}
@@ -38,6 +36,15 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 		c.repository.Add(drink)
 	}
 	c.reportingLog.GetReport()
+}
+
+func (c *CoffeeMachine) IsDrinkEmpty(drink *model.Drink) bool {
+	if c.beverageQuantityChecker.IsEmpty(drink.Name) {
+		c.emailNotifier.NotifyMissingDrink(drink.Name)
+		c.drinkMaker.Execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
+		return true
+	}
+	return false
 }
 
 func IsOrderSold(command string) bool {
