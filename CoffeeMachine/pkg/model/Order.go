@@ -1,18 +1,18 @@
 package model
 
 type Order struct {
-	drinkType     string
+	DrinkType     string
 	sugarQuantity int
-	message string
+	message       string
 	moneyProvided float64
-	extraHot bool
+	extraHot      bool
 }
 
 func NewOrder(drinkType string, sugarQuantity int, moneyProvided float64, isExtraHot bool) *Order {
-	return &Order{drinkType: drinkType, sugarQuantity: sugarQuantity, message: "",
+	return &Order{DrinkType: drinkType, sugarQuantity: sugarQuantity, message: "",
 		moneyProvided: moneyProvided, extraHot: isExtraHot}
 }
 
 func NewOrderMessage(drinkType string, sugarQuantity int, message string) *Order {
-	return &Order{drinkType: drinkType, sugarQuantity: sugarQuantity, message: message}
+	return &Order{DrinkType: drinkType, sugarQuantity: sugarQuantity, message: message}
 }

@@ -25,14 +25,14 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 	factory := model.OrderFactory{}
 	degradableOrder := factory.Create(order)
 	drink := degradableOrder.GetDrink()
-	if drink != nil {
-		if c.IsDrinkEmpty(drink) {
-			return
-		}
+	// TODO Check if a drink is empty in CreateDrinkMakerCommand
+	if IsDrinkOrder(order.DrinkType) && c.IsDrinkEmpty(drink) {
+		c.drinkMaker.Execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
+		return
 	}
 	command := degradableOrder.CreateDrinkMakerCommand()
 	c.drinkMaker.Execute(command)
-	if !IsMessageOrder(command) {
+	if IsDrinkOrder(command) {
 		c.repository.Add(drink)
 	}
 	c.reportingLog.GetReport()
@@ -41,12 +41,11 @@ func (c *CoffeeMachine) Execute(order *model.Order) {
 func (c *CoffeeMachine) IsDrinkEmpty(drink *model.Drink) bool {
 	if c.beverageQuantityChecker.IsEmpty(drink.Name) {
 		c.emailNotifier.NotifyMissingDrink(drink.Name)
-		c.drinkMaker.Execute("M:The drink selected is empty, we have already sent an email to refilled your drink :)")
 		return true
 	}
 	return false
 }
 
-func IsMessageOrder(command string) bool {
-	return strings.HasPrefix(command, "M:")
+func IsDrinkOrder(command string) bool {
+	return !strings.HasPrefix(command, model.Message)
 }

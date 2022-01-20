@@ -13,18 +13,18 @@ var juices = map[string]*Drink{
 
 func (f *OrderFactory) Create(order *Order) DegradableOrder {
 	if IsAHotDrink(order) {
-		return NewHotDrinkOrder(hotDrinks[order.drinkType], order.sugarQuantity, order.moneyProvided, order.extraHot)
+		return NewHotDrinkOrder(hotDrinks[order.DrinkType], order.sugarQuantity, order.moneyProvided, order.extraHot)
 	}
 	if IsAJuice(order) != nil {
-		return NewJuiceOrder(juices[order.drinkType], order.moneyProvided)
+		return NewJuiceOrder(juices[order.DrinkType], order.moneyProvided)
 	}
-	return NewInfoOrder(order.drinkType, order.message)
+	return NewInfoOrder(order.DrinkType, order.message)
 }
 
 func IsAJuice(order *Order) *Drink {
-	return juices[order.drinkType]
+	return juices[order.DrinkType]
 }
 
 func IsAHotDrink(order *Order) bool {
-	return hotDrinks[order.drinkType] != nil
+	return hotDrinks[order.DrinkType] != nil
 }
