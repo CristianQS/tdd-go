@@ -1,12 +1,12 @@
 package model
 
 import (
-	"fmt"
+	"CofferMachine/pkg/constants"
 )
 
 type InfoOrder struct {
 	character string
-	message string
+	message   string
 }
 
 func NewInfoOrder(character string, message string) *InfoOrder {
@@ -14,11 +14,9 @@ func NewInfoOrder(character string, message string) *InfoOrder {
 }
 
 func (o *InfoOrder) CreateDrinkMakerCommand() string {
-	return fmt.Sprintf("%s:%s", o.character, o.message)
+	return constants.InfoMessage(o.character, o.message)
 }
 
-func (d *InfoOrder) GetDrink() *Drink {
+func (o *InfoOrder) GetDrink() *Drink {
 	return nil
 }
-
-

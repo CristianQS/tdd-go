@@ -1,12 +1,15 @@
 package model
 
-import "fmt"
+import (
+	"CofferMachine/pkg/constants"
+	"fmt"
+)
 
 type HotDrinkOrder struct {
-	drink *Drink
+	drink         *Drink
 	sugarQuantity int
 	moneyProvided float64
-	extraHot bool
+	extraHot      bool
 }
 
 func (d *HotDrinkOrder) GetDrink() *Drink {
@@ -21,15 +24,17 @@ func NewHotDrinkOrder(drink *Drink, sugarQuantity int, provided float64, extraHo
 func (d *HotDrinkOrder) CreateDrinkMakerCommand() string {
 	if d.moneyProvided < d.drink.Cost {
 		missingMoney := d.drink.Cost - d.moneyProvided
-		return fmt.Sprintf("M:Missing %.2f € to get your drink", missingMoney)
+		return constants.MissingMoneyMessage(missingMoney)
 	}
 	if d.sugarQuantity > 0 {
-		return fmt.Sprintf("%s%s:%d:0", d.drink.Id,d.isExtraHot(), d.sugarQuantity)
+		return constants.DrinkingWithSugarMessage(fmt.Sprintf("%s%s", d.drink.Id, d.isExtraHot()), d.sugarQuantity)
 	}
-	return fmt.Sprintf("%s%s::", d.drink.Id, d.isExtraHot())
+	return constants.DrinkingMessage(fmt.Sprintf("%s%s", d.drink.Id, d.isExtraHot()))
 }
 
 func (d *HotDrinkOrder) isExtraHot() string {
-	if d.extraHot {return "h"}
+	if d.extraHot {
+		return "h"
+	}
 	return ""
 }
