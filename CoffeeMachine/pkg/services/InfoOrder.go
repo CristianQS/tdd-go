@@ -1,7 +1,8 @@
-package model
+package services
 
 import (
 	"CofferMachine/pkg/constants"
+	"CofferMachine/pkg/model"
 )
 
 type InfoOrder struct {
@@ -17,6 +18,6 @@ func (o *InfoOrder) CreateDrinkMakerCommand() string {
 	return constants.InfoMessage(o.character, o.message)
 }
 
-func (o *InfoOrder) GetDrink() *Drink {
+func (o *InfoOrder) GetDrink() *model.Drink {
 	return nil
 }

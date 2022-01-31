@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"CofferMachine/pkg/factories"
 	"CofferMachine/pkg/infraestructure"
 	"CofferMachine/pkg/model"
 	"CofferMachine/pkg/repository"
@@ -22,7 +23,7 @@ func NewCoffeeMachine(drinkMaker DrinkMaker, repository repository.DrinkReposito
 }
 
 func (c *CoffeeMachine) Execute(order *model.Order) {
-	factory := model.OrderFactory{}
+	factory := factories.OrderFactory{}
 	degradableOrder := factory.Create(order)
 	drink := degradableOrder.GetDrink()
 	// TODO Check if a drink is empty in CreateDrinkMakerCommand

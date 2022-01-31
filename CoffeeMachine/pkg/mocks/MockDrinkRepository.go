@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	model "CofferMachine/pkg/model"
+	"CofferMachine/pkg/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"

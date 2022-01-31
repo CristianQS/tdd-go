@@ -1,22 +1,23 @@
-package model
+package services
 
 import (
 	"CofferMachine/pkg/constants"
+	"CofferMachine/pkg/model"
 	"fmt"
 )
 
 type HotDrinkOrder struct {
-	drink         *Drink
+	drink         *model.Drink
 	sugarQuantity int
 	moneyProvided float64
 	extraHot      bool
 }
 
-func (d *HotDrinkOrder) GetDrink() *Drink {
+func (d *HotDrinkOrder) GetDrink() *model.Drink {
 	return d.drink
 }
 
-func NewHotDrinkOrder(drink *Drink, sugarQuantity int, provided float64, extraHot bool) *HotDrinkOrder {
+func NewHotDrinkOrder(drink *model.Drink, sugarQuantity int, provided float64, extraHot bool) *HotDrinkOrder {
 	return &HotDrinkOrder{drink: drink, sugarQuantity: sugarQuantity, moneyProvided: provided,
 		extraHot: extraHot}
 }
