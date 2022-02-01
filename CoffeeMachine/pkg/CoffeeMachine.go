@@ -25,11 +25,10 @@ func NewCoffeeMachine(drinkMaker DrinkMaker, repository repository.DrinkReposito
 func (c *CoffeeMachine) Execute(order *model.Order) {
 	factory := factories.NewOrderFactory(c.emailNotifier, c.beverageQuantityChecker)
 	degradableOrder := factory.Create(order)
-	drink := degradableOrder.GetDrink()
 	command := degradableOrder.CreateDrinkMakerCommand()
 	c.drinkMaker.Execute(command)
 	if IsDrinkOrder(command) {
-		c.repository.Add(drink)
+		c.repository.Add(degradableOrder.GetDrink())
 	}
 	c.reportingLog.GetReport()
 }
