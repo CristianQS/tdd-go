@@ -1,11 +1,19 @@
 package factories
 
 import (
+	"CofferMachine/pkg/infraestructure"
 	"CofferMachine/pkg/model"
 	"CofferMachine/pkg/services"
 )
 
-type OrderFactory struct{}
+type OrderFactory struct {
+	emailNotifier           infraestructure.EmailNotifier
+	beverageQuantityChecker infraestructure.BeverageQuantityChecker
+}
+
+func NewOrderFactory(emailNotifier infraestructure.EmailNotifier, beverageQuantityChecker infraestructure.BeverageQuantityChecker) *OrderFactory {
+	return &OrderFactory{emailNotifier: emailNotifier, beverageQuantityChecker: beverageQuantityChecker}
+}
 
 var hotDrinks = map[string]*model.Drink{
 	model.Tea:       model.NewDrink(model.Tea, "Tea", 0.4),
@@ -18,10 +26,11 @@ var juices = map[string]*model.Drink{
 
 func (f *OrderFactory) Create(order *model.Order) services.DegradableOrder {
 	if IsAHotDrink(order) {
-		return services.NewHotDrinkOrder(hotDrinks[order.DrinkType], order.SugarQuantity, order.MoneyProvided, order.ExtraHot)
+		return services.NewHotDrinkOrder(hotDrinks[order.DrinkType], order.SugarQuantity, order.MoneyProvided,
+			order.ExtraHot, f.emailNotifier, f.beverageQuantityChecker)
 	}
 	if IsAJuice(order) != nil {
-		return services.NewJuiceOrder(juices[order.DrinkType], order.MoneyProvided)
+		return services.NewJuiceOrder(juices[order.DrinkType], order.MoneyProvided, f.emailNotifier, f.beverageQuantityChecker)
 	}
 	return services.NewInfoOrder(order.DrinkType, order.Message)
 }

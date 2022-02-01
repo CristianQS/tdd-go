@@ -67,7 +67,7 @@ func Test_create_drink_command_with_sugar(t *testing.T) {
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
-			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
+			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Any()).Return(false)
 			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 
@@ -120,7 +120,7 @@ func Test_create_drink_command_when_is_missing_money(t *testing.T) {
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
-			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
+			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Any()).Return(false)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
 			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 
@@ -174,7 +174,7 @@ func Test_create_extra_hot_drinks_command(t *testing.T) {
 			coffeeMachine := NewCoffeeMachine(mockDrinkMaker, repositoryInMemory, reportingLog, mockEmailNotifier, mockBeverageQuantityChecker)
 
 			// WHEN
-			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq(tc.name)).Return(false)
+			mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Any()).Return(false)
 			mockLogger.EXPECT().PrintLine(gomock.Any()).Times(3)
 			mockDrinkMaker.EXPECT().Execute(gomock.Eq(tc.expected)).Times(1)
 
@@ -199,8 +199,7 @@ func Test_create_report_of_drinks_sold(t *testing.T) {
 	// WHEN
 	mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq("Orange")).Return(false)
 	mockDrinkMaker.EXPECT().Execute(gomock.Any()).Times(1)
-	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Sold")).Times(1)
-	mockLogger.EXPECT().PrintLine(gomock.Eq("Orange | 1")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Any()).Times(2)
 	mockLogger.EXPECT().PrintLine(gomock.Eq("Total Money Earned: 0.60")).Times(1)
 
 	// THEN
@@ -222,6 +221,8 @@ func Test_should_print_in_console_the_shortage_and_email_notification_when_Bever
 	// WHEN
 	mockBeverageQuantityChecker.EXPECT().IsEmpty(gomock.Eq("Orange")).Return(true)
 	mockEmailNotifier.EXPECT().NotifyMissingDrink(gomock.Eq("Orange")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Drink | Sold")).Times(1)
+	mockLogger.EXPECT().PrintLine(gomock.Eq("Total Money Earned: 0.00")).Times(1)
 	mockDrinkMaker.EXPECT().Execute(gomock.Eq("M:The drink selected is empty, we have already sent an email to refilled your drink :)")).Times(1)
 
 	// THEN
